@@ -11,6 +11,7 @@ namespace Tema.Models.Users.BaseUser
         public string LastName { get; set; }
         public string Email { get; set; }
         public string PasswordHash { get; set; }
+        public string ProfilePicture { get; set; }
         public Role Role { get; set; }
     }
 }

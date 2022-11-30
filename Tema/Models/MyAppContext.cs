@@ -22,10 +22,15 @@ namespace Tema.Models
                 .HasMany(c => c.Employees)
                 .WithOne(s => s.Company)
                 .OnDelete(DeleteBehavior.SetNull);
-            
-            modelBuilder.Entity<Company>()
-                .HasOne(c => c.Creator)
-                .WithOne(s => s.Company)
+
+            modelBuilder.Entity<Seeker>()
+                .HasOne(s => s.CompanyCreated)
+                .WithOne(c => c.Creator)
+                .HasForeignKey<Company>(c => c.CreatorId);
+
+            modelBuilder.Entity<Seeker>()
+                .HasOne(s => s.Company)
+                .WithMany(f => f.Employees)
                 .OnDelete(DeleteBehavior.SetNull);
 
             modelBuilder.Entity<Seeker>()

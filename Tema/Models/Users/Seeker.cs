@@ -12,6 +12,7 @@ namespace Tema.Models.Users
     {
         [Required]
         public Company Company { get; set; }
+        public Company CompanyCreated { get; set; }
         public List<Job> Jobs { get; set; }
     }
 }
