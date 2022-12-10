@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Tema.Models.Base;
+﻿using Tema.Models.Base;
 using Tema.Models.Users;
 
 namespace Tema.Models.Companies

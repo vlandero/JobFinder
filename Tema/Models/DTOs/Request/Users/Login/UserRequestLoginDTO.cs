@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace Tema.Models.DTOs.Request.Users.Login
 {
-    public class UserDTO
+    public class UserRequestLoginDTO
     {
         [Required]
         public string Email { get; set; }

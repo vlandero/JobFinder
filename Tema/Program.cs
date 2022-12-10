@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Tema.Helpers.Extensions;
 using Tema.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,6 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<MyAppContext>(o => o.UseNpgsql(builder.Configuration.GetConnectionString("DB")));
+builder.Services.AddServices();
+builder.Services.AddRepositories();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
