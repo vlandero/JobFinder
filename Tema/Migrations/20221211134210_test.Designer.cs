@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Tema.Models;
@@ -11,9 +12,11 @@ using Tema.Models;
 namespace Tema.Migrations
 {
     [DbContext(typeof(MyAppContext))]
-    partial class MyAppContextModelSnapshot : ModelSnapshot
+    [Migration("20221211134210_test")]
+    partial class test
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,7 +34,7 @@ namespace Tema.Migrations
                     b.Property<Guid>("CreatorId")
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime?>("DateCreated")
+                    b.Property<DateTime>("DateCreated")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
@@ -64,7 +67,7 @@ namespace Tema.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTime?>("DateCreated")
+                    b.Property<DateTime>("DateCreated")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
@@ -80,6 +83,7 @@ namespace Tema.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Salary")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<Guid>("SeekerId")
@@ -107,13 +111,13 @@ namespace Tema.Migrations
                     b.ToTable("Applicants");
                 });
 
-            modelBuilder.Entity("Tema.Models.Users.Finder.Finder", b =>
+            modelBuilder.Entity("Tema.Models.Users.Finder", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime?>("DateCreated")
+                    b.Property<DateTime>("DateCreated")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Email")
@@ -133,9 +137,11 @@ namespace Tema.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("ProfilePicture")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Resume")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int>("Role")
@@ -146,7 +152,7 @@ namespace Tema.Migrations
                     b.ToTable("Finders");
                 });
 
-            modelBuilder.Entity("Tema.Models.Users.Seeker.Seeker", b =>
+            modelBuilder.Entity("Tema.Models.Users.Seeker", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -155,7 +161,7 @@ namespace Tema.Migrations
                     b.Property<Guid>("CompanyId")
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime?>("DateCreated")
+                    b.Property<DateTime>("DateCreated")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Email")
@@ -175,6 +181,7 @@ namespace Tema.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("ProfilePicture")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int>("Role")
@@ -189,7 +196,7 @@ namespace Tema.Migrations
 
             modelBuilder.Entity("Tema.Models.Companies.Company", b =>
                 {
-                    b.HasOne("Tema.Models.Users.Seeker.Seeker", "Creator")
+                    b.HasOne("Tema.Models.Users.Seeker", "Creator")
                         .WithOne("CompanyCreated")
                         .HasForeignKey("Tema.Models.Companies.Company", "CreatorId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -200,8 +207,8 @@ namespace Tema.Migrations
 
             modelBuilder.Entity("Tema.Models.Jobs.Job", b =>
                 {
-                    b.HasOne("Tema.Models.Users.Seeker.Seeker", "Seeker")
-                        .WithMany("ListedJobs")
+                    b.HasOne("Tema.Models.Users.Seeker", "Seeker")
+                        .WithMany("Jobs")
                         .HasForeignKey("SeekerId")
                         .OnDelete(DeleteBehavior.SetNull)
                         .IsRequired();
@@ -211,7 +218,7 @@ namespace Tema.Migrations
 
             modelBuilder.Entity("Tema.Models.ManyToMany.Applicant", b =>
                 {
-                    b.HasOne("Tema.Models.Users.Finder.Finder", "Finder")
+                    b.HasOne("Tema.Models.Users.Finder", "Finder")
                         .WithMany("JobApplications")
                         .HasForeignKey("FinderId")
                         .OnDelete(DeleteBehavior.SetNull)
@@ -228,7 +235,7 @@ namespace Tema.Migrations
                     b.Navigation("Job");
                 });
 
-            modelBuilder.Entity("Tema.Models.Users.Seeker.Seeker", b =>
+            modelBuilder.Entity("Tema.Models.Users.Seeker", b =>
                 {
                     b.HasOne("Tema.Models.Companies.Company", "Company")
                         .WithMany("Employees")
@@ -249,16 +256,17 @@ namespace Tema.Migrations
                     b.Navigation("Applicants");
                 });
 
-            modelBuilder.Entity("Tema.Models.Users.Finder.Finder", b =>
+            modelBuilder.Entity("Tema.Models.Users.Finder", b =>
                 {
                     b.Navigation("JobApplications");
                 });
 
-            modelBuilder.Entity("Tema.Models.Users.Seeker.Seeker", b =>
+            modelBuilder.Entity("Tema.Models.Users.Seeker", b =>
                 {
-                    b.Navigation("CompanyCreated");
+                    b.Navigation("CompanyCreated")
+                        .IsRequired();
 
-                    b.Navigation("ListedJobs");
+                    b.Navigation("Jobs");
                 });
 #pragma warning restore 612, 618
         }

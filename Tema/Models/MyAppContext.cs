@@ -2,7 +2,8 @@
 using Tema.Models.Companies;
 using Tema.Models.Jobs;
 using Tema.Models.ManyToMany;
-using Tema.Models.Users;
+using Tema.Models.Users.Finder;
+using Tema.Models.Users.Seeker;
 
 namespace Tema.Models
 {
@@ -34,7 +35,7 @@ namespace Tema.Models
                 .OnDelete(DeleteBehavior.SetNull);
 
             modelBuilder.Entity<Seeker>()
-                .HasMany(s => s.Jobs)
+                .HasMany(s => s.ListedJobs)
                 .WithOne(j => j.Seeker)
                 .OnDelete(DeleteBehavior.SetNull);
             

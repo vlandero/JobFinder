@@ -1,11 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Tema.Models.DTOs.Request.Users.Register;
 using Tema.Models.Enums;
-using Tema.Models.Users;
+using Tema.Models.Users.Finder;
 using Tema.Services.Finders;
 using Tema.Services.Seekers;
-using Tema.Services.Users;
 using BCryptNet = BCrypt.Net.BCrypt;
 
 namespace Tema.Controllers
@@ -14,8 +12,8 @@ namespace Tema.Controllers
     [ApiController]
     public class AccountsController : ControllerBase
     {
-        private IFinderService _finderService;
-        private ISeekerService _seekerService;
+        private readonly IFinderService _finderService;
+        private readonly ISeekerService _seekerService;
         public AccountsController(IFinderService finderService, ISeekerService seekerService)
         {
             _finderService = finderService;

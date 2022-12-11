@@ -10,7 +10,7 @@ namespace Tema.Models.Users.BaseUser
         public string FirstName { get; set; }
         [Required]
         public string LastName { get; set; }
-        public string ProfilePicture { get; set; }
+        public string? ProfilePicture { get; set; }
         [Required]
         public string Email { get; set; }
         [Required]

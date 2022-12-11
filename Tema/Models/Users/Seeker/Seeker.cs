@@ -6,13 +6,12 @@ using Tema.Models.Enums;
 using Tema.Models.Jobs;
 using Tema.Models.Users.BaseUser;
 
-namespace Tema.Models.Users
+namespace Tema.Models.Users.Seeker
 {
-    public class Seeker : User
+    public class Seeker : User, ISeeker
     {
-        [Required]
         public Company Company { get; set; }
-        public Company CompanyCreated { get; set; }
-        public List<Job> Jobs { get; set; }
+        public Company? CompanyCreated { get; set; }
+        public List<Job> ListedJobs { get; set; }
     }
 }

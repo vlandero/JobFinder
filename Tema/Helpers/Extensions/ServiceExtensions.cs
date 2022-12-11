@@ -1,7 +1,8 @@
-﻿using Tema.Repositories.GenericRepository;
+﻿using Tema.Models.Users.Finder;
+using Tema.Models.Users.Seeker;
+using Tema.Repositories.GenericRepository;
 using Tema.Repositories.UsersRepository;
 using Tema.Repositories.UsersRepository.FindersRepository;
-using Tema.Repositories.UsersRepository.GenericUsersRepository;
 using Tema.Services.Finders;
 using Tema.Services.Seekers;
 
@@ -13,6 +14,8 @@ namespace Tema.Helpers.Extensions
         {
             services.AddTransient<IFindersRepository, FindersRepository>();
             services.AddTransient<ISeekersRepository, SeekersRepository>();
+            services.AddTransient<IGenericRepository<Finder>, GenericRepository<Finder>>();
+            services.AddTransient<IGenericRepository<Seeker>, GenericRepository<Seeker>>();
             return services;
         }
         public static IServiceCollection AddServices(this IServiceCollection services)

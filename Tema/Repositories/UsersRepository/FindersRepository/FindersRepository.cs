@@ -1,5 +1,5 @@
 ﻿using Tema.Models;
-using Tema.Models.Users;
+using Tema.Models.Users.Finder;
 using Tema.Repositories.UsersRepository.GenericUsersRepository;
 
 namespace Tema.Repositories.UsersRepository.FindersRepository

@@ -1,5 +1,5 @@
 ﻿using Tema.Models.Jobs;
-using Tema.Models.Users;
+using Tema.Models.Users.Finder;
 
 namespace Tema.Models.ManyToMany
 {

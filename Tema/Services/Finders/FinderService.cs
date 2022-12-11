@@ -1,4 +1,4 @@
-﻿using Tema.Models.Users;
+﻿using Tema.Models.Users.Finder;
 using Tema.Repositories.UsersRepository.FindersRepository;
 using Tema.Repositories.UsersRepository.GenericUsersRepository;
 using Tema.Services.Users;

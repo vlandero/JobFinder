@@ -1,5 +1,5 @@
 ﻿using Tema.Models.Base;
-using Tema.Models.Users;
+using Tema.Models.Users.Seeker;
 
 namespace Tema.Models.Companies
 {

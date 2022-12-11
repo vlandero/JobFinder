@@ -1,4 +1,4 @@
-﻿using Tema.Models.Users;
+﻿using Tema.Models.Users.Finder;
 using Tema.Services.Users;
 
 namespace Tema.Services.Finders
