@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Tema.Models;
@@ -11,9 +12,11 @@ using Tema.Models;
 namespace Tema.Migrations
 {
     [DbContext(typeof(MyAppContext))]
-    partial class MyAppContextModelSnapshot : ModelSnapshot
+    [Migration("20221224151749_Unique")]
+    partial class Unique
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,6 +50,9 @@ namespace Tema.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CreatorId")
+                        .IsUnique();
 
                     b.HasIndex("Name")
                         .IsUnique();
@@ -169,9 +175,6 @@ namespace Tema.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<bool>("IsCreator")
-                        .HasColumnType("boolean");
-
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("text");
@@ -194,6 +197,17 @@ namespace Tema.Migrations
                         .IsUnique();
 
                     b.ToTable("Seekers");
+                });
+
+            modelBuilder.Entity("Tema.Models.Companies.Company", b =>
+                {
+                    b.HasOne("Tema.Models.Users.Seeker.Seeker", "Creator")
+                        .WithOne("CompanyCreated")
+                        .HasForeignKey("Tema.Models.Companies.Company", "CreatorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Creator");
                 });
 
             modelBuilder.Entity("Tema.Models.Jobs.Job", b =>
@@ -254,6 +268,8 @@ namespace Tema.Migrations
 
             modelBuilder.Entity("Tema.Models.Users.Seeker.Seeker", b =>
                 {
+                    b.Navigation("CompanyCreated");
+
                     b.Navigation("ListedJobs");
                 });
 #pragma warning restore 612, 618

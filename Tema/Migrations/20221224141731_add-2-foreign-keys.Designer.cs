@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Tema.Models;
@@ -11,9 +12,11 @@ using Tema.Models;
 namespace Tema.Migrations
 {
     [DbContext(typeof(MyAppContext))]
-    partial class MyAppContextModelSnapshot : ModelSnapshot
+    [Migration("20221224141731_add-2-foreign-keys")]
+    partial class add2foreignkeys
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,9 +50,6 @@ namespace Tema.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Name")
-                        .IsUnique();
 
                     b.ToTable("Companies");
                 });
@@ -143,9 +143,6 @@ namespace Tema.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Email")
-                        .IsUnique();
-
                     b.ToTable("Finders");
                 });
 
@@ -153,6 +150,9 @@ namespace Tema.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("CompanyCreatedId")
                         .HasColumnType("uuid");
 
                     b.Property<Guid>("CompanyId")
@@ -168,9 +168,6 @@ namespace Tema.Migrations
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("text");
-
-                    b.Property<bool>("IsCreator")
-                        .HasColumnType("boolean");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -188,10 +185,10 @@ namespace Tema.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CompanyId");
-
-                    b.HasIndex("Email")
+                    b.HasIndex("CompanyCreatedId")
                         .IsUnique();
+
+                    b.HasIndex("CompanyId");
 
                     b.ToTable("Seekers");
                 });
@@ -228,6 +225,10 @@ namespace Tema.Migrations
 
             modelBuilder.Entity("Tema.Models.Users.Seeker.Seeker", b =>
                 {
+                    b.HasOne("Tema.Models.Companies.Company", "CompanyCreated")
+                        .WithOne("Creator")
+                        .HasForeignKey("Tema.Models.Users.Seeker.Seeker", "CompanyCreatedId");
+
                     b.HasOne("Tema.Models.Companies.Company", "Company")
                         .WithMany("Employees")
                         .HasForeignKey("CompanyId")
@@ -235,10 +236,15 @@ namespace Tema.Migrations
                         .IsRequired();
 
                     b.Navigation("Company");
+
+                    b.Navigation("CompanyCreated");
                 });
 
             modelBuilder.Entity("Tema.Models.Companies.Company", b =>
                 {
+                    b.Navigation("Creator")
+                        .IsRequired();
+
                     b.Navigation("Employees");
                 });
 

@@ -7,17 +7,16 @@ namespace Tema.Repositories.GenericRepository
         Task<List<TEntity>> GetAllAsync();
         
         Task CreateAsync(TEntity entity);
-        Task CreateRangeAsync(IEnumerable<TEntity> entities);
 
         void Update(TEntity entity);
-        void UpdateRange(IEnumerable<TEntity> entities);
 
         void Delete(TEntity entity);
-        void DeleteRange(IEnumerable<TEntity> entities);
+        void DeleteAll();
         
         Task<TEntity> FindByIdAsync(object id);
         
         Task<bool> SaveAsync();
+        bool Save();
 
     }
 }

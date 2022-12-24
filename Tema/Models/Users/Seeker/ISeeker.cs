@@ -9,7 +9,8 @@ namespace Tema.Models.Users.Seeker
     {
         [Required]
         public Company Company { get; set; }
-        public Company? CompanyCreated { get; set; }
+        [Required]
+        public bool IsCreator { get; set; }
         [Required]
         public List<Job> ListedJobs { get; set; }
     }

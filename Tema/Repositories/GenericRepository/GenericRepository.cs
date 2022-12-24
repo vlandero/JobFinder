@@ -25,26 +25,17 @@ namespace Tema.Repositories.GenericRepository
         {
             await _table.AddAsync(entity);
         }
-        public async Task CreateRangeAsync(IEnumerable<TEntity> entities)
-        {
-            await _table.AddRangeAsync(entities);
-        }
         public void Update(TEntity entity)
         {
             _table.Update(entity);
-        }
-
-        public void UpdateRange(IEnumerable<TEntity> entities)
-        {
-            _table.UpdateRange(entities);
         }
         public void Delete(TEntity entity)
         {
             _table.Remove(entity);
         }
-        public void DeleteRange(IEnumerable<TEntity> entities)
+        public void DeleteAll()
         {
-            _table.RemoveRange(entities);
+            _table.RemoveRange(_table);
         }
         public async Task<TEntity> FindByIdAsync(object id)
         {
@@ -62,6 +53,10 @@ namespace Tema.Repositories.GenericRepository
             }
 
             return false;
+        }
+        public bool Save()
+        {
+            return _context.SaveChanges() > 0;
         }
     }
 }

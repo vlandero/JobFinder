@@ -9,7 +9,6 @@ namespace Tema.Models.Companies
         public string Description { get; set; }
         public string Location { get; set; }
         public List<Seeker> Employees { get; set; }
-        public Seeker Creator { get; set; }
         public Guid CreatorId { get; set; }
     }
 }

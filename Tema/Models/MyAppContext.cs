@@ -19,19 +19,13 @@ namespace Tema.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Seeker>(e => e.HasIndex(x => x.Email).IsUnique());
+            modelBuilder.Entity<Finder>(e => e.HasIndex(x => x.Email).IsUnique());
+            modelBuilder.Entity<Company>(e => e.HasIndex(x => x.Name).IsUnique());
+
             modelBuilder.Entity<Company>()
                 .HasMany(c => c.Employees)
                 .WithOne(s => s.Company)
-                .OnDelete(DeleteBehavior.SetNull);
-
-            modelBuilder.Entity<Seeker>()
-                .HasOne(s => s.CompanyCreated)
-                .WithOne(c => c.Creator)
-                .HasForeignKey<Company>(c => c.CreatorId);
-
-            modelBuilder.Entity<Seeker>()
-                .HasOne(s => s.Company)
-                .WithMany(f => f.Employees)
                 .OnDelete(DeleteBehavior.SetNull);
 
             modelBuilder.Entity<Seeker>()

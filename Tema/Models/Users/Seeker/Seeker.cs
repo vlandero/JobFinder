@@ -11,7 +11,7 @@ namespace Tema.Models.Users.Seeker
     public class Seeker : User, ISeeker
     {
         public Company Company { get; set; }
-        public Company? CompanyCreated { get; set; }
+        public bool IsCreator { get; set; }
         public List<Job> ListedJobs { get; set; }
     }
 }
