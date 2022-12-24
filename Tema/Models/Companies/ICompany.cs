@@ -6,6 +6,7 @@ namespace Tema.Models.Companies
 {
     public interface ICompany : IBaseEntity
     {
+        public string? Logo { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]

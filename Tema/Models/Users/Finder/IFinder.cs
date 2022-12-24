@@ -8,6 +8,8 @@ namespace Tema.Models.Users.Finder
     {
         public string? Resume { get; set; }
         [Required]
+        public string? About { get; set; }
+        [Required]
         public List<Applicant> JobApplications { get; set; }
     }
 }

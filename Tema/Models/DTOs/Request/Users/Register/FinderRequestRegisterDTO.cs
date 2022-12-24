@@ -2,5 +2,6 @@
 {
     public class FinderRequestRegisterDTO : UserRequestRegisterDTO
     {
+        public string? About { get; set; }
     }
 }

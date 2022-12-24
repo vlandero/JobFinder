@@ -34,6 +34,19 @@ namespace Tema.Controllers
                 return BadRequest(e.Message);
             }
         }
+        [HttpDelete("delete-all-finders")]
+        public IActionResult DeleteAllFinders()
+        {
+            try
+            {
+                _finderService.DeleteAll();
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
 
         [HttpDelete("delete-all-seekers")]
         public IActionResult DeleteAllSeekers()

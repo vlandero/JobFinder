@@ -14,7 +14,8 @@ namespace Tema.Repositories.GenericRepository
         void DeleteAll();
         
         Task<TEntity> FindByIdAsync(object id);
-        
+        TEntity FindById(object id);
+
         Task<bool> SaveAsync();
         bool Save();
 

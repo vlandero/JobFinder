@@ -41,6 +41,10 @@ namespace Tema.Repositories.GenericRepository
         {
             return await _table.FindAsync(id);
         }
+        public TEntity FindById(object id)
+        {
+            return _table.Find(id);
+        }
         public async Task<bool> SaveAsync()
         {
             try

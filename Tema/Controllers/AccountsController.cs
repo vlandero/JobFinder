@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Tema.Models.Companies;
+using Tema.Models.DTOs.Request.Users.Login;
 using Tema.Models.DTOs.Request.Users.Register;
 using Tema.Models.Enums;
 using Tema.Models.Jobs;
@@ -36,6 +37,7 @@ namespace Tema.Controllers
                 FirstName = f.FirstName,
                 LastName = f.LastName,
                 PasswordHash = BCryptNet.HashPassword(f.Password),
+                About = f.About,
                 Role = Role.User,
             };
             try
@@ -67,8 +69,9 @@ namespace Tema.Controllers
                 var newCompany = new Company
                 {
                     Name = s.CompanyDTO.Name,
-                    Description = s.CompanyDTO.Description,
-                    Location = s.CompanyDTO.Location,
+                    Description = s.CompanyDTO.Description!,
+                    Location = s.CompanyDTO.Location!,
+                    Logo = s.CompanyDTO.Logo,
                     Employees = new List<Seeker>(),
                 };
                 userToCreate.Company = newCompany;
@@ -98,6 +101,33 @@ namespace Tema.Controllers
                 }
             }
             return Ok();
+        }
+        [HttpPost("login-finder")]
+        public async Task<IActionResult> LoginFinder(UserRequestLoginDTO f)
+        {
+            try
+            {
+                var finder = await _finderService.Login(f);
+                return Ok(finder);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return BadRequest(e.Message);
+            }
+        }
+        [HttpPost("login-seeker")]
+        public async Task<IActionResult> LoginSeeker(UserRequestLoginDTO s)
+        {
+            try
+            {
+                var seeker = await _seekerService.Login(s);
+                return Ok(seeker);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
     }
 }
