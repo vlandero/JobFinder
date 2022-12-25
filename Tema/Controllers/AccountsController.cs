@@ -129,5 +129,67 @@ namespace Tema.Controllers
                 return BadRequest(e.Message);
             }
         }
+        [HttpDelete("delete-all-finders")]
+        public IActionResult DeleteAllFinders()
+        {
+            try
+            {
+                _finderService.DeleteAll();
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpDelete("delete-all-seekers")]
+        public IActionResult DeleteAllSeekers()
+        {
+            try
+            {
+                _seekerService.DeleteAll();
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+        [HttpDelete("delete-seeker")]
+        public async Task<IActionResult> DeleteSeeker(string seekerEmail)
+        {
+            try
+            {
+                Seeker s = await _seekerService.GetByEmail(seekerEmail);
+                if (!s.IsCreator)
+                {
+                    _seekerService.Delete(s);
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest("You can't delete the creator of a job! Transfer the ownership before deleting!");
+                }
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+        [HttpDelete("delete-finder")]
+        public async Task<IActionResult> DeleteFinder(string finderEmail)
+        {
+            try
+            {
+                Finder f = await _finderService.GetByEmail(finderEmail);
+                _finderService.Delete(f);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
     }
 }

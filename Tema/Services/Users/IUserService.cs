@@ -1,12 +1,11 @@
 ﻿using Tema.Models.Users.BaseUser;
+using Tema.Services.Generic;
 
 namespace Tema.Services.Users
 {
-    public interface IUserService<UserEntity> where UserEntity : User
+    public interface IUserService<UserEntity> : IGenericService<User> where UserEntity : User
     {
-        Task Create(UserEntity newUser);
-        UserEntity GetById(Guid id);
         Task<UserEntity> GetByEmail(string email);
-        void DeleteAll();
+
     }
 }

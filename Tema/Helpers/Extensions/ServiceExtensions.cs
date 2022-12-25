@@ -1,4 +1,7 @@
 ﻿using Tema.Helpers.JwtHelpers;
+using Tema.Models.Companies;
+using Tema.Models.Jobs;
+using Tema.Models.Users.BaseUser;
 using Tema.Models.Users.Finder;
 using Tema.Models.Users.Seeker;
 using Tema.Repositories.CompaniesRepository;
@@ -21,6 +24,9 @@ namespace Tema.Helpers.Extensions
             services.AddTransient<ISeekersRepository, SeekersRepository>();
             services.AddTransient<IGenericRepository<Finder>, GenericRepository<Finder>>();
             services.AddTransient<IGenericRepository<Seeker>, GenericRepository<Seeker>>();
+            services.AddTransient<IGenericRepository<Company>, GenericRepository<Company>>();
+            services.AddTransient<IGenericRepository<User>, GenericRepository<User>>();
+            services.AddTransient<IGenericRepository<Job>, GenericRepository<Job>>();
             services.AddTransient<IGenericUsersRepository<Seeker>, GenericUsersRepository<Seeker>>();
             services.AddTransient<IGenericUsersRepository<Finder>, GenericUsersRepository<Finder>>();
             services.AddTransient<ICompanyRepository, CompanyRepository>();

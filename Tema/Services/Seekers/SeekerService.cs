@@ -1,7 +1,9 @@
 ﻿using Tema.Helpers.JwtHelpers;
 using Tema.Models.DTOs.Request.Users.Login;
 using Tema.Models.DTOs.Response.Users.Login;
+using Tema.Models.Users.BaseUser;
 using Tema.Models.Users.Seeker;
+using Tema.Repositories.GenericRepository;
 using Tema.Repositories.UsersRepository;
 using Tema.Services.Users;
 using BCryptNet = BCrypt.Net.BCrypt;
@@ -10,7 +12,7 @@ namespace Tema.Services.Seekers
 {
     public class SeekerService : UserService<Seeker>, ISeekerService
     {
-        public SeekerService(ISeekersRepository userRepository, IJwtHelpers<Seeker> jwtHelpers) : base(userRepository, jwtHelpers)
+        public SeekerService(IGenericRepository<User> repo,ISeekersRepository userRepository, IJwtHelpers<Seeker> jwtHelpers) : base(repo, userRepository, jwtHelpers)
         {
         }
         public async Task<SeekerResponseLoginDTO> Login(UserRequestLoginDTO user)

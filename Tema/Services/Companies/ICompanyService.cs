@@ -1,12 +1,10 @@
 ﻿using Tema.Models.Companies;
+using Tema.Services.Generic;
 
 namespace Tema.Services.Companies
 {
-    public interface ICompanyService
+    public interface ICompanyService : IGenericService<Company>
     {
-        Task Create(Company c);
         Task<Company> GetByName(string name);
-        void DeleteAll();
-        void Update(Company c);
     }
 }
