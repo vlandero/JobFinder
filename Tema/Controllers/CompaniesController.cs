@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Tema.Models.Companies;
 using Tema.Models.DTOs.Companies;
 using Tema.Services.Companies;
+using Tema.Services.Jobs;
 
 namespace Tema.Controllers
 {
@@ -11,9 +12,11 @@ namespace Tema.Controllers
     public class CompaniesController : ControllerBase
     {
         private readonly ICompanyService _companyService;
-        public CompaniesController(ICompanyService companyService)
+        private readonly IJobService _jobService;
+        public CompaniesController(ICompanyService companyService, IJobService jobService)
         {
             _companyService = companyService;
+            _jobService = jobService;
         }
         [HttpDelete("delete-all-companies")]
         public IActionResult DeleteAllCompanies()
@@ -54,6 +57,22 @@ namespace Tema.Controllers
                 company.Logo = c.Logo;
                 _companyService.Update(company);
                 return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpGet("get-company/{name}")]
+        public async Task<IActionResult> GetCompany(string name)
+        {
+            try
+            {
+                Company c = await _companyService.GetByName(name);
+                var jobs = _jobService.GetAllFromCompany(c.Id);
+                var dto = new CompanyDTO(c, jobs);
+                return Ok(dto);
             }
             catch (Exception e)
             {

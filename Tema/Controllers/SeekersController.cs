@@ -1,19 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Tema.Helpers.Authorization;
 using Tema.Models.Companies;
-using Tema.Models.DTOs.Applicants;
 using Tema.Models.DTOs.Request.Users.Login;
 using Tema.Models.DTOs.Request.Users.Register;
 using Tema.Models.DTOs.Response.Users.Login;
 using Tema.Models.DTOs.TransferOwnership;
 using Tema.Models.Enums;
 using Tema.Models.Jobs;
-using Tema.Models.ManyToMany;
-using Tema.Models.Users.Finder;
 using Tema.Models.Users.Seeker;
 using Tema.Services.Companies;
-using Tema.Services.Finders;
-using Tema.Services.Jobs;
 using Tema.Services.Seekers;
 using BCryptNet = BCrypt.Net.BCrypt;
 
@@ -44,7 +39,8 @@ namespace Tema.Controllers
                 PasswordHash = BCryptNet.HashPassword(s.Password),
                 Role = Role.User,
                 ListedJobs = new List<Job>() { },
-                IsCreator = s.Created
+                IsCreator = s.Created,
+                DateCreated = DateTime.Now
             };
             if (s.Created == true)
             {
@@ -55,6 +51,7 @@ namespace Tema.Controllers
                     Location = s.CompanyDTO.Location!,
                     Logo = s.CompanyDTO.Logo,
                     Employees = new List<Seeker>() { },
+                    DateCreated = DateTime.Now
                 };
                 userToCreate.Company = newCompany;
                 try
@@ -171,6 +168,19 @@ namespace Tema.Controllers
                 _seekerService.Update(newOwner);
 
                 return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+        [HttpGet("get-seeker/{email}")]
+        public async Task<IActionResult> GetSeeker(string email)
+        {
+            try
+            {
+                Seeker s = await _seekerService.GetByEmail(email);
+                return Ok(s);
             }
             catch (Exception e)
             {

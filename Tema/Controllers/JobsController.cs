@@ -28,6 +28,20 @@ namespace Tema.Controllers
             return Ok(jobs);
         }
 
+        [HttpDelete("delete-all-jobs")]
+        public IActionResult DeleteAllJobs()
+        {
+            try
+            {
+                _jobService.DeleteAll();
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
         [HttpPost("create-job")]
         public async Task<IActionResult> CreateJob(JobDTO j)
         {
@@ -40,7 +54,8 @@ namespace Tema.Controllers
                 Applicants = new List<Applicant>(),
                 Location = j.Location,
                 Category = j.Category,
-                Seeker = JobCreator
+                Seeker = JobCreator,
+                DateCreated = DateTime.Now
             };
             try
             {

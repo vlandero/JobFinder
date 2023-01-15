@@ -1,12 +1,13 @@
-﻿using Tema.Models.Users.Seeker;
+﻿using Tema.Models.DTOs.Jobs;
 
 namespace Tema.Models.DTOs.Companies
 {
     public interface ICompanyDTO
     {
-        public string Name { get; set; }
-        public string? Description { get; set; }
-        public string? Location { get; set; }
-        public string? Logo { get; set; }
+        string Name { get; set; }
+        string? Description { get; set; }
+        string? Location { get; set; }
+        string? Logo { get; set; }
+        List<JobDTO>? ListedJobs { get; set; }
     }
 }

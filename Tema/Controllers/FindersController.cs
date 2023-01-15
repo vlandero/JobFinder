@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Tema.Helpers.Authorization;
 using Tema.Models.DTOs.Applicants;
+using Tema.Models.DTOs.Finders;
 using Tema.Models.DTOs.Request.Users.Login;
 using Tema.Models.DTOs.Request.Users.Register;
 using Tema.Models.DTOs.Response.Users.Login;
@@ -107,7 +108,8 @@ namespace Tema.Controllers
                     Finder = f,
                     Job = j,
                     FinderId = f.Id,
-                    JobId = j.Id
+                    JobId = j.Id,
+                    DateApplied = DateTime.Now
                 };
                 if (f.JobApplications == null)
                     f.JobApplications = new List<Applicant>();
@@ -139,6 +141,21 @@ namespace Tema.Controllers
                 return BadRequest(e.Message);
             }
         }
-        
+        [HttpGet("get-finder/{name}")]
+        public async Task<IActionResult> GetFinder(string name)
+        {
+            try
+            {
+                Finder f = await _finderService.GetByEmail(name);
+                var jobsApplied = _jobService.GetAllFromFinder(f.Id);
+                var dto = new FinderDTO(f, jobsApplied);
+                return Ok(f);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
     }
 }

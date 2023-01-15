@@ -10,7 +10,6 @@ using Tema.Repositories.JobsRepository;
 using Tema.Repositories.UsersRepository;
 using Tema.Repositories.UsersRepository.FindersRepository;
 using Tema.Repositories.UsersRepository.GenericUsersRepository;
-using Tema.Services.Applicants;
 using Tema.Services.Companies;
 using Tema.Services.Finders;
 using Tema.Services.Jobs;
@@ -35,7 +34,6 @@ namespace Tema.Helpers.Extensions
             services.AddTransient<IGenericUsersRepository<User>, GenericUsersRepository<User>>();
             services.AddTransient<ICompanyRepository, CompanyRepository>();
             services.AddTransient<IJobsRepository, JobsRepository>();
-            services.AddTransient<IApplicantService, ApplicantService>();
             return services;
         }
         public static IServiceCollection AddServices(this IServiceCollection services)
