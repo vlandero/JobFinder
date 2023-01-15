@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Tema.Models.Base;
-using Tema.Models.Companies;
 using Tema.Models.ManyToMany;
 using Tema.Models.Users.Seeker;
 

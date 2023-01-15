@@ -5,5 +5,6 @@ namespace Tema.Repositories.JobsRepository
 {
     public interface IJobsRepository : IGenericRepository<Job>
     {
+        List<Job> GetAllOrdered();
     }
 }

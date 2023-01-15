@@ -1,4 +1,5 @@
-﻿using Tema.Models.DTOs.Companies;
+﻿using System.Text.Json.Serialization;
+using Tema.Models.DTOs.Companies;
 
 namespace Tema.Models.DTOs.Request.Users.Register
 {
@@ -6,6 +7,9 @@ namespace Tema.Models.DTOs.Request.Users.Register
     {
         public CompanyDTO CompanyDTO { get; set; }
         public bool Created { get; set; }
-        
+        [JsonConstructor]
+        public SeekerRequestRegisterDTO() { }
+
+
     }
 }

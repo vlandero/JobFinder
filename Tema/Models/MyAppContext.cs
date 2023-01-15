@@ -26,13 +26,13 @@ namespace Tema.Models
             modelBuilder.Entity<Company>()
                 .HasMany(c => c.Employees)
                 .WithOne(s => s.Company)
-                .OnDelete(DeleteBehavior.SetNull);
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Seeker>()
                 .HasMany(s => s.ListedJobs)
                 .WithOne(j => j.Seeker)
-                .OnDelete(DeleteBehavior.SetNull);
-            
+                .OnDelete(DeleteBehavior.Cascade);    
+
             modelBuilder.Entity<Applicant>()
                 .HasKey(a => new { a.FinderId, a.JobId });
             
@@ -40,13 +40,13 @@ namespace Tema.Models
                 .HasOne(a => a.Finder)
                 .WithMany(f => f.JobApplications)
                 .HasForeignKey(a => a.FinderId)
-                .OnDelete(DeleteBehavior.SetNull);
+                .OnDelete(DeleteBehavior.Cascade);
             
             modelBuilder.Entity<Applicant>()
                 .HasOne(a => a.Job)
                 .WithMany(j => j.Applicants)
                 .HasForeignKey(a => a.JobId)
-                .OnDelete(DeleteBehavior.SetNull); 
+                .OnDelete(DeleteBehavior.Cascade); 
 
             base.OnModelCreating(modelBuilder);
         }

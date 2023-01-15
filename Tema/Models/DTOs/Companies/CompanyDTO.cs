@@ -1,4 +1,5 @@
-﻿using Tema.Models.Companies;
+﻿using System.Text.Json.Serialization;
+using Tema.Models.Companies;
 
 namespace Tema.Models.DTOs.Companies
 {
@@ -8,6 +9,8 @@ namespace Tema.Models.DTOs.Companies
         public string? Description { get; set; }
         public string? Location { get; set; }
         public string? Logo { get; set; }
+        [JsonConstructor]
+        public CompanyDTO() { }
         
         public CompanyDTO(Company c)
         {

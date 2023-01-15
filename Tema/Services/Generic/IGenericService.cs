@@ -8,6 +8,7 @@ namespace Tema.Services.Generic
         void DeleteAll();
         void Delete(T entity);
         T GetById(Guid id);
+        Task<T> GetByIdAsync(Guid id);
         void Update(T entity);
     }
 }

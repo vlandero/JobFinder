@@ -1,13 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Tema.Helpers.Authorization;
 using Tema.Models.Companies;
+using Tema.Models.DTOs.Applicants;
 using Tema.Models.DTOs.Request.Users.Login;
 using Tema.Models.DTOs.Request.Users.Register;
+using Tema.Models.DTOs.Response.Users.Login;
+using Tema.Models.DTOs.TransferOwnership;
 using Tema.Models.Enums;
 using Tema.Models.Jobs;
+using Tema.Models.ManyToMany;
 using Tema.Models.Users.Finder;
 using Tema.Models.Users.Seeker;
 using Tema.Services.Companies;
 using Tema.Services.Finders;
+using Tema.Services.Jobs;
 using Tema.Services.Seekers;
 using BCryptNet = BCrypt.Net.BCrypt;
 
@@ -15,41 +21,17 @@ namespace Tema.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AccountsController : ControllerBase
+    public class SeekersController : ControllerBase
     {
-        private readonly IFinderService _finderService;
         private readonly ISeekerService _seekerService;
         private readonly ICompanyService _companyService;
-        
-        public AccountsController(IFinderService finderService, ISeekerService seekerService, ICompanyService companyService)
+
+        public SeekersController(ISeekerService seekerService, ICompanyService companyService)
         {
-            _finderService = finderService;
             _seekerService = seekerService;
             _companyService = companyService;
         }
 
-        [HttpPost("register-finder")]
-        public async Task<IActionResult> RegisterFinder(FinderRequestRegisterDTO f)
-        {
-            var userToCreate = new Finder
-            {
-                Email = f.Email,
-                FirstName = f.FirstName,
-                LastName = f.LastName,
-                PasswordHash = BCryptNet.HashPassword(f.Password),
-                About = f.About,
-                Role = Role.User,
-            };
-            try
-            {
-                await _finderService.Create(userToCreate);
-                return Ok();
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
-        }
 
         [HttpPost("register-seeker")]
         public async Task<IActionResult> RegisterSeeker(SeekerRequestRegisterDTO s)
@@ -61,7 +43,7 @@ namespace Tema.Controllers
                 LastName = s.LastName,
                 PasswordHash = BCryptNet.HashPassword(s.Password),
                 Role = Role.User,
-                ListedJobs = new List<Job>(),
+                ListedJobs = new List<Job>() { },
                 IsCreator = s.Created
             };
             if (s.Created == true)
@@ -72,7 +54,7 @@ namespace Tema.Controllers
                     Description = s.CompanyDTO.Description!,
                     Location = s.CompanyDTO.Location!,
                     Logo = s.CompanyDTO.Logo,
-                    Employees = new List<Seeker>(),
+                    Employees = new List<Seeker>() { },
                 };
                 userToCreate.Company = newCompany;
                 try
@@ -91,7 +73,7 @@ namespace Tema.Controllers
             else
             {
                 try
-                { 
+                {
                     userToCreate.Company = await _companyService.GetByName(s.CompanyDTO.Name);
                     await _seekerService.Create(userToCreate);
                 }
@@ -101,20 +83,6 @@ namespace Tema.Controllers
                 }
             }
             return Ok();
-        }
-        [HttpPost("login-finder")]
-        public async Task<IActionResult> LoginFinder(UserRequestLoginDTO f)
-        {
-            try
-            {
-                var finder = await _finderService.Login(f);
-                return Ok(finder);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                return BadRequest(e.Message);
-            }
         }
         [HttpPost("login-seeker")]
         public async Task<IActionResult> LoginSeeker(UserRequestLoginDTO s)
@@ -129,20 +97,8 @@ namespace Tema.Controllers
                 return BadRequest(e.Message);
             }
         }
-        [HttpDelete("delete-all-finders")]
-        public IActionResult DeleteAllFinders()
-        {
-            try
-            {
-                _finderService.DeleteAll();
-                return Ok();
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
-        }
-
+        
+        [Authorization(Role.Admin)]
         [HttpDelete("delete-all-seekers")]
         public IActionResult DeleteAllSeekers()
         {
@@ -177,13 +133,43 @@ namespace Tema.Controllers
                 return BadRequest(e.Message);
             }
         }
-        [HttpDelete("delete-finder")]
-        public async Task<IActionResult> DeleteFinder(string finderEmail)
+        
+        [HttpPost("modify-seeker")]
+        public async Task<IActionResult> ModifySeeker(SeekerResponseLoginDTO seeker)
         {
             try
             {
-                Finder f = await _finderService.GetByEmail(finderEmail);
-                _finderService.Delete(f);
+                Seeker s = await _seekerService.GetByEmail(seeker.Email);
+                s.FirstName = seeker.FirstName;
+                s.LastName = seeker.LastName;
+                s.ProfilePicture = seeker.ProfilePicture;
+                _seekerService.Update(s);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+        [HttpPost("transfer-ownership")]
+        public async Task<IActionResult> TransferOwnership(TransferOwnershipDTO to)
+        {
+            try
+            {
+                Seeker currentOwner = await _seekerService.GetByEmail(to.CurrentOwnerEmail);
+                Seeker newOwner = await _seekerService.GetByEmail(to.NewOwnerEmail);
+                if (currentOwner.Company.Id != newOwner.Company.Id)
+                {
+                    return BadRequest("User are on different companies");
+                }
+                Company c = await _companyService.GetByIdAsync(currentOwner.Company.Id);
+                c.CreatorId = newOwner.Id;
+                newOwner.IsCreator = true;
+                currentOwner.IsCreator = false;
+                _companyService.Update(c);
+                _seekerService.Update(currentOwner);
+                _seekerService.Update(newOwner);
+
                 return Ok();
             }
             catch (Exception e)

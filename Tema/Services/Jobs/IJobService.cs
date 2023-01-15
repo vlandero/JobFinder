@@ -1,6 +1,10 @@
-﻿namespace Tema.Services.Jobs
+﻿using Tema.Models.Jobs;
+using Tema.Services.Generic;
+
+namespace Tema.Services.Jobs
 {
-    public interface IJobService
+    public interface IJobService : IGenericService<Job>
     {
+        List<Job> GetAllOrdered();
     }
 }

@@ -8,11 +8,11 @@ using Tema.Services.Generic;
 
 namespace Tema.Services.Users
 {
-    public class UserService<UserEntity> : GenericService<User>, IUserService<UserEntity> where UserEntity : User
+    public class UserService<UserEntity> : GenericService<UserEntity>, IUserService<UserEntity> where UserEntity : User
     {
         protected readonly IGenericUsersRepository<UserEntity> _userRepository;
         protected IJwtHelpers<UserEntity> _jwtHelpers;
-        public UserService(IGenericRepository<User> repository, IGenericUsersRepository<UserEntity> userRepository, IJwtHelpers<UserEntity> jwtHelpers) : base(repository)
+        public UserService(IGenericRepository<UserEntity> repository, IGenericUsersRepository<UserEntity> userRepository, IJwtHelpers<UserEntity> jwtHelpers) : base(repository)
         { 
             _userRepository = userRepository;
             _jwtHelpers = jwtHelpers;

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Tema.Models;
@@ -11,9 +12,11 @@ using Tema.Models;
 namespace Tema.Migrations
 {
     [DbContext(typeof(MyAppContext))]
-    partial class MyAppContextModelSnapshot : ModelSnapshot
+    [Migration("20230115133429_cascadetest")]
+    partial class cascadetest
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -207,7 +210,7 @@ namespace Tema.Migrations
                     b.HasOne("Tema.Models.Users.Seeker.Seeker", "Seeker")
                         .WithMany("ListedJobs")
                         .HasForeignKey("SeekerId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.SetNull)
                         .IsRequired();
 
                     b.Navigation("Seeker");
@@ -218,13 +221,13 @@ namespace Tema.Migrations
                     b.HasOne("Tema.Models.Users.Finder.Finder", "Finder")
                         .WithMany("JobApplications")
                         .HasForeignKey("FinderId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.SetNull)
                         .IsRequired();
 
                     b.HasOne("Tema.Models.Jobs.Job", "Job")
                         .WithMany("Applicants")
                         .HasForeignKey("JobId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.SetNull)
                         .IsRequired();
 
                     b.Navigation("Finder");
@@ -237,7 +240,7 @@ namespace Tema.Migrations
                     b.HasOne("Tema.Models.Companies.Company", "Company")
                         .WithMany("Employees")
                         .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.SetNull)
                         .IsRequired();
 
                     b.Navigation("Company");

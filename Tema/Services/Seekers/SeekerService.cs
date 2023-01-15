@@ -12,7 +12,7 @@ namespace Tema.Services.Seekers
 {
     public class SeekerService : UserService<Seeker>, ISeekerService
     {
-        public SeekerService(IGenericRepository<User> repo,ISeekersRepository userRepository, IJwtHelpers<Seeker> jwtHelpers) : base(repo, userRepository, jwtHelpers)
+        public SeekerService(IGenericRepository<Seeker> repo,ISeekersRepository userRepository, IJwtHelpers<Seeker> jwtHelpers) : base(repo, userRepository, jwtHelpers)
         {
         }
         public async Task<SeekerResponseLoginDTO> Login(UserRequestLoginDTO user)

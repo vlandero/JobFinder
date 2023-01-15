@@ -1,4 +1,5 @@
-﻿using Tema.Models.Users.BaseUser;
+﻿using System.Text.Json.Serialization;
+using Tema.Models.Users.BaseUser;
 
 namespace Tema.Models.DTOs.Response.Users.Login
 {
@@ -8,7 +9,9 @@ namespace Tema.Models.DTOs.Response.Users.Login
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string? ProfilePicture { get; set; }
-        public string Token { get; set; }
+        public string? Token { get; set; }
+        [JsonConstructor]
+        public UserResponseLoginDTO() { }
         
         public UserResponseLoginDTO(T user, string token)
         {

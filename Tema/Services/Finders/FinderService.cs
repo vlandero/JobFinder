@@ -13,7 +13,7 @@ namespace Tema.Services.Finders
     public class FinderService : UserService<Finder>, IFinderService
     {
 
-        public FinderService(IGenericRepository<User> repo, IFindersRepository userRepository, IJwtHelpers<Finder> jwtHelpers) : base(repo, userRepository, jwtHelpers)
+        public FinderService(IGenericRepository<Finder> repo, IFindersRepository userRepository, IJwtHelpers<Finder> jwtHelpers) : base(repo, userRepository, jwtHelpers)
         {
         }
         public async Task<FinderResponseLoginDTO> Login(UserRequestLoginDTO user)

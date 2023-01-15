@@ -14,6 +14,10 @@ namespace Tema.Services.Generic
         {
             return _repository.FindById(id);
         }
+        public async Task<T> GetByIdAsync(Guid id)
+        {
+            return await _repository.FindByIdAsync(id);
+        }
         public async Task Create(T newEntity)
         {
             await _repository.CreateAsync(newEntity);

@@ -10,5 +10,14 @@ namespace Tema.Repositories.JobsRepository
         {
 
         }
+
+        public List<Job> GetAllOrdered()
+        {
+            var x = from job in _table
+                   orderby job.DateCreated descending
+                   select job;
+            
+            return x.ToList();
+        }
     }
 }
