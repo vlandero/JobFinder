@@ -11,6 +11,8 @@ namespace Tema.Models.ManyToMany
         public Guid JobId { get; set; }
         public Job Job { get; set; }
 
-        public DateTime? DateApplied { get; set; }
+        public DateTime DateApplied { get; set; }
+        public DateTime? DateAnswered { get; set; }
+        public bool Accepted { get; set; }
     }
 }

@@ -51,5 +51,12 @@ namespace Tema.Repositories.JobsRepository
             return x.ToList();
             
         }
+        public Job GetByPostId(long id)
+        {
+            var x = from job in _table
+                    where job.PostId == id
+                    select job;
+            return x.FirstOrDefault();
+        }
     }
 }

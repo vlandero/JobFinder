@@ -102,14 +102,19 @@ namespace Tema.Controllers
             try
             {
                 Finder f = await _finderService.GetByEmail(a.FinderEmail);
-                Job j = await _jobService.GetByIdAsync(a.JobId);
+                Job j = _jobService.GetByPostId(a.PostId);
+                if (j == null)
+                {
+                    return BadRequest("Job not found");
+                }
                 Applicant ap = new Applicant
                 {
                     Finder = f,
                     Job = j,
                     FinderId = f.Id,
                     JobId = j.Id,
-                    DateApplied = DateTime.Now
+                    DateApplied = DateTime.Now,
+                    Accepted = false
                 };
                 if (f.JobApplications == null)
                     f.JobApplications = new List<Applicant>();

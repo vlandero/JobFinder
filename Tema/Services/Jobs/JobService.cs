@@ -10,7 +10,7 @@ namespace Tema.Services.Jobs
     public class JobService : GenericService<Job>, IJobService
     {
         private readonly IJobsRepository _jobsRepository;
-        public JobService(IGenericRepository<Job> repo ,IJobsRepository jobsRepository) : base(repo)
+        public JobService(IGenericRepository<Job> repo, IJobsRepository jobsRepository) : base(repo)
         {
             _jobsRepository = jobsRepository;
         }
@@ -29,6 +29,10 @@ namespace Tema.Services.Jobs
         public List<ApplicationDTO> GetAllFromFinder(Guid id)
         {
             return _jobsRepository.GetAllFromFinder(id);
+        }
+        public Job GetByPostId(long id)
+        {
+            return _jobsRepository.GetByPostId(id);
         }
     }
 }

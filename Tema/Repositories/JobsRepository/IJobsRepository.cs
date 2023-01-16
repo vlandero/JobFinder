@@ -11,5 +11,6 @@ namespace Tema.Repositories.JobsRepository
         List<JobDTO> GetAllFromCompany(Guid id);
         List<JobDTO> GetAllFromSeeker(Guid id);
         List<ApplicationDTO> GetAllFromFinder(Guid id);
+        Job GetByPostId(long id);
     }
 }

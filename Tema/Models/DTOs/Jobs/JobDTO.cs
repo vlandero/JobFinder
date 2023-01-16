@@ -5,7 +5,7 @@ namespace Tema.Models.DTOs.Jobs
 {
     public class JobDTO : IJobDTO
     {
-        public Guid? Id { get; set; }
+        public long? PostId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string Category { get; set; }
@@ -18,7 +18,7 @@ namespace Tema.Models.DTOs.Jobs
 
         public JobDTO(Job j)
         {
-            Id = j.Id;
+            PostId = j.PostId;
             Name = j.Name;
             Description = j.Description;
             Category = j.Category;

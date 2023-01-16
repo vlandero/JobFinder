@@ -69,11 +69,11 @@ namespace Tema.Controllers
         }
 
         [HttpPost("get-applicants")]
-        public async Task<IActionResult> GetApplicants(Guid jobId)
+        public async Task<IActionResult> GetApplicants(long jobId)
         {
             try
             {
-                Job j = await _jobService.GetByIdAsync(jobId);
+                Job j = _jobService.GetByPostId(jobId);
                 List<Applicant> applicants = j.Applicants;
                 List<Finder> applicantsFinders = new List<Finder>();
                 foreach (Applicant a in applicants)
@@ -81,6 +81,20 @@ namespace Tema.Controllers
                     applicantsFinders.Add(a.Finder);
                 }
                 return Ok(applicantsFinders);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+        
+        [HttpGet("get-job/{id}")]
+        public async Task<IActionResult> GetJobByPostId(long id)
+        {
+            try
+            {
+                Job j = _jobService.GetByPostId(id);
+                return Ok(j);
             }
             catch (Exception e)
             {

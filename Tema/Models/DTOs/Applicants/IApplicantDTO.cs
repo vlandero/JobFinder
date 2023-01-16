@@ -3,6 +3,6 @@
     public interface IApplicantDTO
     {
         string FinderEmail { get; set; }
-        Guid JobId { get; set; }
+        long PostId { get; set; }
     }
 }
