@@ -40,6 +40,8 @@ namespace Tema.Controllers
                 About = f.About,
                 JobApplications = new List<Applicant>() { },
                 Role = Role.User,
+                DateCreated = DateTime.Now,
+                Skills = f.Skills,
             };
             try
             {
@@ -138,6 +140,7 @@ namespace Tema.Controllers
                 f.About = finder.About;
                 f.Resume = finder.Resume;
                 f.ProfilePicture = finder.ProfilePicture;
+                f.Skills = finder.Skills;
                 _finderService.Update(f);
                 return Ok();
             }
@@ -146,15 +149,15 @@ namespace Tema.Controllers
                 return BadRequest(e.Message);
             }
         }
-        [HttpGet("get-finder/{name}")]
-        public async Task<IActionResult> GetFinder(string name)
+        [HttpGet("get-finder/{email}")]
+        public async Task<IActionResult> GetFinder(string email)
         {
             try
             {
-                Finder f = await _finderService.GetByEmail(name);
+                Finder f = await _finderService.GetByEmail(email);
                 var jobsApplied = _jobService.GetAllFromFinder(f.Id);
                 var dto = new FinderDTO(f, jobsApplied);
-                return Ok(f);
+                return Ok(dto);
             }
             catch (Exception e)
             {

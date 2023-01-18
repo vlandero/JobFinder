@@ -15,7 +15,10 @@ namespace Tema.Models
         public DbSet<Job> Jobs { get; set; }
         public DbSet<Applicant> Applicants { get; set; }
 
-        public MyAppContext(DbContextOptions<MyAppContext> options) : base(options) { }
+        public MyAppContext(DbContextOptions<MyAppContext> options) : base(options)
+        {
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

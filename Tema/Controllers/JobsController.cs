@@ -94,7 +94,8 @@ namespace Tema.Controllers
             try
             {
                 Job j = _jobService.GetByPostId(id);
-                return Ok(j);
+                var ret = new JobDTO(j);
+                return Ok(ret);
             }
             catch (Exception e)
             {

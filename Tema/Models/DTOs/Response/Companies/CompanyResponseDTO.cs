@@ -5,7 +5,7 @@ using Tema.Models.Jobs;
 
 namespace Tema.Models.DTOs.Companies
 {
-    public class CompanyDTO : ICompanyDTO
+    public class CompanyResponseDTO : ICompanyResponseDTO
     {
         public string Name { get; set; }
         public string? Description { get; set; }
@@ -14,16 +14,16 @@ namespace Tema.Models.DTOs.Companies
         public List<JobDTO>? ListedJobs { get; set; }
 
         [JsonConstructor]
-        public CompanyDTO() { }
+        public CompanyResponseDTO() { }
         
-        public CompanyDTO(Company c)
+        public CompanyResponseDTO(Company c)
         {
             Name = c.Name;
             Description = c.Description;
             Location = c.Location;
             Logo = c.Logo;
         }
-        public CompanyDTO(Company c, List<JobDTO> jobs) : this(c)
+        public CompanyResponseDTO(Company c, List<JobDTO> jobs) : this(c)
         {
             ListedJobs = jobs;
         }

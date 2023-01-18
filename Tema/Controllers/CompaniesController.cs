@@ -46,7 +46,7 @@ namespace Tema.Controllers
             }
         }
         [HttpPost("modify-company")]
-        public async Task<IActionResult> ModifyCompany(CompanyDTO c)
+        public async Task<IActionResult> ModifyCompany(CompanyRequestDTO c)
         {
             try
             {
@@ -71,7 +71,7 @@ namespace Tema.Controllers
             {
                 Company c = await _companyService.GetByName(name);
                 var jobs = _jobService.GetAllFromCompany(c.Id);
-                var dto = new CompanyDTO(c, jobs);
+                var dto = new CompanyResponseDTO(c, jobs);
                 return Ok(dto);
             }
             catch (Exception e)

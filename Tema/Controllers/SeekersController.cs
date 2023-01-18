@@ -4,11 +4,13 @@ using Tema.Models.Companies;
 using Tema.Models.DTOs.Request.Users.Login;
 using Tema.Models.DTOs.Request.Users.Register;
 using Tema.Models.DTOs.Response.Users.Login;
+using Tema.Models.DTOs.Seekers;
 using Tema.Models.DTOs.TransferOwnership;
 using Tema.Models.Enums;
 using Tema.Models.Jobs;
 using Tema.Models.Users.Seeker;
 using Tema.Services.Companies;
+using Tema.Services.Jobs;
 using Tema.Services.Seekers;
 using BCryptNet = BCrypt.Net.BCrypt;
 
@@ -20,11 +22,13 @@ namespace Tema.Controllers
     {
         private readonly ISeekerService _seekerService;
         private readonly ICompanyService _companyService;
+        private readonly IJobService _jobService;
 
-        public SeekersController(ISeekerService seekerService, ICompanyService companyService)
+        public SeekersController(ISeekerService seekerService, ICompanyService companyService, IJobService jobService)
         {
             _seekerService = seekerService;
             _companyService = companyService;
+            _jobService = jobService;
         }
 
 
@@ -180,7 +184,9 @@ namespace Tema.Controllers
             try
             {
                 Seeker s = await _seekerService.GetByEmail(email);
-                return Ok(s);
+                var listedJobs = _jobService.GetAllFromSeeker(s.Id);
+                var ret = new SeekerDTO(s, listedJobs);
+                return Ok(ret);
             }
             catch (Exception e)
             {

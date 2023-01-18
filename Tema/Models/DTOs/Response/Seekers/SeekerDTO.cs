@@ -9,7 +9,7 @@ namespace Tema.Models.DTOs.Seekers
     public class SeekerDTO : UsersDTO<Seeker>, ISeekerDTO
     {
         public bool IsCreator { get; set; }
-        public CompanyDTO Company { get; set; }
+        public CompanyResponseDTO Company { get; set; }
         public List<JobDTO> ListedJobs { get; set; }
         [JsonConstructor]
         public SeekerDTO() : base() { }
@@ -17,7 +17,7 @@ namespace Tema.Models.DTOs.Seekers
         public SeekerDTO(Seeker s, List<JobDTO> listedJobs) : base(s)
         {
             IsCreator = s.IsCreator;
-            Company = new CompanyDTO(s.Company);
+            Company = new CompanyResponseDTO(s.Company);
             ListedJobs = listedJobs;
         }
     }

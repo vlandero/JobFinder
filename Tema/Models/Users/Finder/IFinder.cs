@@ -6,8 +6,9 @@ namespace Tema.Models.Users.Finder
 {
     public interface IFinder : IUser
     {
-        public string? Resume { get; set; }
-        public string? About { get; set; }
-        public List<Applicant> JobApplications { get; set; }
+        string? Resume { get; set; }
+        string? About { get; set; }
+        List<string> Skills { get; set; }
+        List<Applicant> JobApplications { get; set; }
     }
 }

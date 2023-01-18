@@ -5,7 +5,7 @@ namespace Tema.Models.DTOs.Request.Users.Register
 {
     public class SeekerRequestRegisterDTO : UserRequestRegisterDTO
     {
-        public CompanyDTO CompanyDTO { get; set; }
+        public CompanyRequestDTO CompanyDTO { get; set; }
         public bool Created { get; set; }
         [JsonConstructor]
         public SeekerRequestRegisterDTO() { }

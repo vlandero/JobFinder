@@ -6,8 +6,9 @@ namespace Tema.Models.DTOs.Finders
 {
     public interface IFinderDTO : IUsersDTO<Finder>
     {
-        string Resume { get; set; }
-        string About { get; set; }
+        string? Resume { get; set; }
+        string? About { get; set; }
+        List<string> Skills { get; set; }
         List<ApplicationDTO> Applications { get; set; }
     }
 }

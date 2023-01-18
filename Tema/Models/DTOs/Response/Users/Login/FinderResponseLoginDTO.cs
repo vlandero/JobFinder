@@ -8,6 +8,7 @@ namespace Tema.Models.DTOs.Response.Users.Login
         
         public string? Resume { get; set; }
         public string? About { get; set; }
+        public List<string> Skills { get; set; }
 
         [JsonConstructor]
         public FinderResponseLoginDTO() { }
