@@ -7,6 +7,7 @@ namespace Tema.Models.DTOs.Users
         string Email { get; set; }
         string FirstName { get; set; }
         string LastName { get; set; }
+        string Url { get; set; }
         string ProfilePicture { get; set; }
     }
 }

@@ -5,6 +5,7 @@ namespace Tema.Repositories.UsersRepository.GenericUsersRepository
 {
     public interface IGenericUsersRepository<UserEntity> : IGenericRepository<UserEntity> where UserEntity : User
     {
-        public Task<UserEntity> GetByEmailAsync(string email);
+        Task<UserEntity> GetByEmailAsync(string email);
+        Task<UserEntity> GetByUrlAsync(string url);
     }
 }

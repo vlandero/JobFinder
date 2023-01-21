@@ -28,6 +28,7 @@ namespace Tema.Controllers
             return Ok(jobs);
         }
 
+        //[Authorization(Role.Admin)]
         [HttpDelete("delete-all-jobs")]
         public IActionResult DeleteAllJobs()
         {

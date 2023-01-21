@@ -12,5 +12,7 @@ namespace Tema.Models.DTOs.Request.Users.Register
         public string FirstName { get; set; }
         [Required]
         public string LastName { get; set; }
+        [Required]
+        public string Url { get; set; }
     }
 }

@@ -18,6 +18,8 @@ namespace Tema.Models.Users.BaseUser
         public string PasswordHash { get; set; }
         public string? ProfilePicture { get; set; }
         [Required]
+        public string Url { get; set; }
+        [Required]
         public Role Role { get; set; }
     }
 }

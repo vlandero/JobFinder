@@ -21,5 +21,9 @@ namespace Tema.Services.Users
         {
             return await _userRepository.GetByEmailAsync(email);
         }
+        public async Task <UserEntity> GetByUrl(string url)
+        {
+            return await _userRepository.GetByUrlAsync(url);
+        }
     }
 }

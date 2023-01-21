@@ -8,6 +8,7 @@ namespace Tema.Models.DTOs.Response.Users.Login
         public string Email { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string Url { get; set; }
         public string? ProfilePicture { get; set; }
         public string? Token { get; set; }
         [JsonConstructor]
@@ -20,6 +21,7 @@ namespace Tema.Models.DTOs.Response.Users.Login
             LastName = user.LastName;
             ProfilePicture = user.ProfilePicture;
             Token = token;
+            Url = user.Url;
         }
     }
 }

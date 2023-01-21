@@ -24,6 +24,8 @@ namespace Tema.Models
         {
             modelBuilder.Entity<Seeker>(e => e.HasIndex(x => x.Email).IsUnique());
             modelBuilder.Entity<Finder>(e => e.HasIndex(x => x.Email).IsUnique());
+            modelBuilder.Entity<Seeker>(e => e.HasIndex(x => x.Url).IsUnique());
+            modelBuilder.Entity<Finder>(e => e.HasIndex(x => x.Url).IsUnique());
             modelBuilder.Entity<Company>(e => e.HasIndex(x => x.Name).IsUnique());
 
             modelBuilder.Entity<Company>()

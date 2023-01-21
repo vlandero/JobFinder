@@ -17,5 +17,10 @@ namespace Tema.Repositories.UsersRepository.GenericUsersRepository
             return _table.FirstOrDefaultAsync<UserEntity>(u => u.Email == email);
 
         }
+
+        public Task<UserEntity> GetByUrlAsync(string url)
+        {
+            return _table.FirstOrDefaultAsync<UserEntity>(u => u.Url == url);
+        }
     }
 }

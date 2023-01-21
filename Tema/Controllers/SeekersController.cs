@@ -99,7 +99,7 @@ namespace Tema.Controllers
             }
         }
         
-        [Authorization(Role.Admin)]
+        // [Authorization(Role.Admin)]
         [HttpDelete("delete-all-seekers")]
         public IActionResult DeleteAllSeekers()
         {
@@ -184,6 +184,21 @@ namespace Tema.Controllers
             try
             {
                 Seeker s = await _seekerService.GetByEmail(email);
+                var listedJobs = _jobService.GetAllFromSeeker(s.Id);
+                var ret = new SeekerDTO(s, listedJobs);
+                return Ok(ret);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+        [HttpGet("get-seeker-url/{url}")]
+        public async Task<IActionResult> GetSeekerByUrl(string url)
+        {
+            try
+            {
+                Seeker s = await _seekerService.GetByUrl(url);
                 var listedJobs = _jobService.GetAllFromSeeker(s.Id);
                 var ret = new SeekerDTO(s, listedJobs);
                 return Ok(ret);

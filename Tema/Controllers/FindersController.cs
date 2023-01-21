@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Tema.Helpers.Authorization;
 using Tema.Models.DTOs.Applicants;
 using Tema.Models.DTOs.Finders;
 using Tema.Models.DTOs.Request.Users.Login;
@@ -69,7 +68,7 @@ namespace Tema.Controllers
             }
         }
 
-        [Authorization(Role.Admin)]
+        //[Authorization(Role.Admin)]
         [HttpDelete("delete-all-finders")]
         public IActionResult DeleteAllFinders()
         {
@@ -155,6 +154,21 @@ namespace Tema.Controllers
             try
             {
                 Finder f = await _finderService.GetByEmail(email);
+                var jobsApplied = _jobService.GetAllFromFinder(f.Id);
+                var dto = new FinderDTO(f, jobsApplied);
+                return Ok(dto);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+        [HttpGet("get-finder-url/{url}")]
+        public async Task<IActionResult> GetFinderByUrl(string url)
+        {
+            try
+            {
+                Finder f = await _finderService.GetByUrl(url);
                 var jobsApplied = _jobService.GetAllFromFinder(f.Id);
                 var dto = new FinderDTO(f, jobsApplied);
                 return Ok(dto);

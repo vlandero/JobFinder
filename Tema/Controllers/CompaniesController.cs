@@ -18,6 +18,7 @@ namespace Tema.Controllers
             _companyService = companyService;
             _jobService = jobService;
         }
+        //[Authorization(Role.Admin)]
         [HttpDelete("delete-all-companies")]
         public IActionResult DeleteAllCompanies()
         {
@@ -78,6 +79,12 @@ namespace Tema.Controllers
             {
                 return BadRequest(e.Message);
             }
+        }
+
+        [HttpGet("test/{name}")]
+        public async Task<IActionResult> TestApi(string name)
+        {
+            return Ok(name);
         }
     }
 }
