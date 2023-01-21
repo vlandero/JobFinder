@@ -1,5 +1,5 @@
 ﻿using Tema.Models.DTOs.Applications;
-using Tema.Models.DTOs.Jobs;
+using Tema.Models.DTOs.Response.Jobs;
 using Tema.Models.Jobs;
 using Tema.Repositories.GenericRepository;
 using Tema.Repositories.JobsRepository;
@@ -14,15 +14,15 @@ namespace Tema.Services.Jobs
         {
             _jobsRepository = jobsRepository;
         }
-        public List<JobDTO> GetAllOrdered()
+        public List<JobResponseDTO> GetAllOrdered()
         {
             return _jobsRepository.GetAllOrdered();
         }
-        public List<JobDTO> GetAllFromCompany(Guid id)
+        public List<JobResponseDTO> GetAllFromCompany(Guid id)
         {
             return _jobsRepository.GetAllFromCompany(id);
         }
-        public List<JobDTO> GetAllFromSeeker(Guid id)
+        public List<JobResponseDTO> GetAllFromSeeker(Guid id)
         {
             return _jobsRepository.GetAllFromSeeker(id);
         }

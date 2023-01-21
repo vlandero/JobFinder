@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Tema.Models.DTOs.Jobs;
+using Tema.Models.DTOs.Request.Jobs;
+using Tema.Models.DTOs.Response.Jobs;
 using Tema.Models.Jobs;
 using Tema.Models.ManyToMany;
 using Tema.Models.Users.Finder;
@@ -44,7 +45,7 @@ namespace Tema.Controllers
         }
 
         [HttpPost("create-job")]
-        public async Task<IActionResult> CreateJob(JobDTO j)
+        public async Task<IActionResult> CreateJob(JobRequestDTO j)
         {
             Seeker JobCreator = await _seekerService.GetByEmail(j.CreatorEmail);
             var jobToCreate = new Job
@@ -95,7 +96,7 @@ namespace Tema.Controllers
             try
             {
                 Job j = _jobService.GetByPostId(id);
-                var ret = new JobDTO(j);
+                var ret = new JobResponseDTO(j);
                 return Ok(ret);
             }
             catch (Exception e)

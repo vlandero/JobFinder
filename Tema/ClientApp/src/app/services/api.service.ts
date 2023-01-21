@@ -17,7 +17,8 @@ export class ApiService {
         method,
         url: `${url}/${path}`,
         data,
-        ...config
+        ...config,
+        validateStatus: (status) => status < 500
       });
     } catch (error) {
       console.error(error);

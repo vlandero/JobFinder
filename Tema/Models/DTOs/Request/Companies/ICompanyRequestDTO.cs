@@ -1,5 +1,4 @@
-﻿using Tema.Models.DTOs.Jobs;
-
+﻿
 namespace Tema.Models.DTOs.Companies
 {
     public interface ICompanyRequestDTO

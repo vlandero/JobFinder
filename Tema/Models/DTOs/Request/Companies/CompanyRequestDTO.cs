@@ -1,6 +1,5 @@
 ﻿using System.Text.Json.Serialization;
 using Tema.Models.Companies;
-using Tema.Models.DTOs.Jobs;
 using Tema.Models.Jobs;
 
 namespace Tema.Models.DTOs.Companies

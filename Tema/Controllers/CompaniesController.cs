@@ -84,7 +84,7 @@ namespace Tema.Controllers
         [HttpGet("test/{name}")]
         public async Task<IActionResult> TestApi(string name)
         {
-            return Ok(name);
+            return BadRequest(name);
         }
     }
 }

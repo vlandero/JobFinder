@@ -1,13 +1,11 @@
-﻿namespace Tema.Models.DTOs.Jobs
+﻿namespace Tema.Models.DTOs.Request.Jobs
 {
-    public interface IJobDTO
+    public interface IJobRequestDTO
     {
-        long? PostId { get; set; }
         string Name { get; set; }
         string Description { get; set; }
         string Location { get; set; }
         string Category { get; set; }
-        string CreatorEmail { get; set; }
         string? Salary { get; set; }
     }
 }

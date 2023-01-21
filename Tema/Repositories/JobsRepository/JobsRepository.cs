@@ -1,8 +1,7 @@
 ﻿using Tema.Models;
 using Tema.Models.DTOs.Applications;
-using Tema.Models.DTOs.Jobs;
+using Tema.Models.DTOs.Response.Jobs;
 using Tema.Models.Jobs;
-using Tema.Models.Users.Finder;
 using Tema.Repositories.GenericRepository;
 
 namespace Tema.Repositories.JobsRepository
@@ -14,21 +13,21 @@ namespace Tema.Repositories.JobsRepository
 
         }
 
-        public List<JobDTO> GetAllOrdered()
+        public List<JobResponseDTO> GetAllOrdered()
         {
             var x = from job in _table
                    orderby job.DateCreated descending
-                   select new JobDTO(job);
+                   select new JobResponseDTO(job);
             
             return x.ToList();
         }
-        public List<JobDTO> GetAllFromCompany(Guid id)
+        public List<JobResponseDTO> GetAllFromCompany(Guid id)
         {
             var x = from job in _context.Jobs
                     join s in _context.Seekers on job.Seeker.Id equals s.Id
                     join c in _context.Companies on s.Company.Id equals c.Id
                     where c.Id == id
-                    select new JobDTO(job);
+                    select new JobResponseDTO(job);
             return x.ToList();
         }
         public List<ApplicationDTO> GetAllFromFinder(Guid id)
@@ -42,12 +41,12 @@ namespace Tema.Repositories.JobsRepository
                     select new ApplicationDTO(c, job);
             return x.ToList();
         }
-        public List<JobDTO> GetAllFromSeeker(Guid id)
+        public List<JobResponseDTO> GetAllFromSeeker(Guid id)
         {
             var x = from job in _context.Jobs
                     join s in _context.Seekers on job.Seeker.Id equals s.Id
                     where s.Id == id
-                    select new JobDTO(job);
+                    select new JobResponseDTO(job);
             return x.ToList();
             
         }
