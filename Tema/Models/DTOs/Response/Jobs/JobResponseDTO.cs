@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using Tema.Models.DTOs.Finders;
 using Tema.Models.Jobs;
 
 namespace Tema.Models.DTOs.Response.Jobs
@@ -12,12 +13,13 @@ namespace Tema.Models.DTOs.Response.Jobs
         public string? Category { get; set; }
         public string CreatorEmail { get; set; }
         public string? Salary { get; set; }
+        public List<FinderDTO> Applicants { get; set; }
         public DateTime? DateCreated { get; set; }
 
         [JsonConstructor]
         public JobResponseDTO() { }
 
-        public JobResponseDTO(Job j)
+        public JobResponseDTO(Job j, List<FinderDTO> ap)
         {
             PostId = j.PostId;
             Name = j.Name;
@@ -27,6 +29,7 @@ namespace Tema.Models.DTOs.Response.Jobs
             Salary = j.Salary;
             DateCreated = j.DateCreated;
             CreatorEmail = j.Seeker.Email;
+            Applicants = ap;
         }
     }
 }

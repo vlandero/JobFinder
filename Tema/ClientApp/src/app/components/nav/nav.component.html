@@ -1,8 +1,8 @@
 <nav>
     <div class="nav-left"></div>
     <div class="nav-right">
-      <a routerLink="" routerLinkActive="active" class="nav-link">Home</a>
-      <a routerLink="jobs" routerLinkActive="active" class="nav-link">Jobs</a>
-      <a routerLink="about" routerLinkActive="active" class="nav-link">About</a>
+      <a routerLink="" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active" ngClass="nav-link">Home</a>
+      <a routerLink="jobs" routerLinkActive="active" ngClass="nav-link">Jobs</a>
+      <a routerLink="login" routerLinkActive="active" ngClass="nav-link">Login</a>
     </div>
 </nav>

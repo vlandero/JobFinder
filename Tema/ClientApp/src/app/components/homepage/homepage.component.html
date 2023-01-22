@@ -1,2 +1,20 @@
-<p>homepage works!</p>
-<button (click)="getData()">hello</button>
+<p>New here?</p>
+<button (click)="openSeeker()">Are you seeking for employees?</button>
+<button (click)="openFinder()">Are you searching for jobs?</button>
+<app-modal *ngIf="showFinderModal" (close)="onFinderClose()"  >
+    <div modal-header>
+        <h2>Create a finder account!</h2>
+    </div>
+    <div modal-body>
+        <app-facc (close)="onFinderClose()"></app-facc>
+    </div>
+</app-modal>
+
+<app-modal *ngIf="showSeekerModal" (close)="onSeekerClose()" >
+    <div modal-header>
+        <h2>Create a seeker account linked with your company!</h2>
+    </div>
+    <div modal-body>
+        <app-sacc ></app-sacc>
+    </div>
+</app-modal>

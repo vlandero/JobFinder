@@ -1,1 +1,57 @@
-<p>facc works!</p>
+<div ngClass="first" *ngIf="visible === 1">
+    <p>Are you ready to take your job finding to the next level?</p>
+    <p>Start by completing our registration form: </p>
+    <form [formGroup]="registerForm">
+        <input formControlName="firstName" placeholder="First Name">
+        <input formControlName="lastName" placeholder="Last Name">
+        <input formControlName="email" placeholder="Email">
+    </form>
+    <div ngClass="buttons">
+        <button color="primary" (click)="cancel()">Cancel</button>
+        <button color="primary" (click)="setVisible(2)">Next</button>
+    </div>
+</div>
+
+<div ngClass="second" *ngIf="visible === 2">
+    <div ngClass="skill-input">
+        <p>Tell us about your skills:</p>
+        <input [ngModel]="currentSkill" (ngModelChange)="onChangeSkill($event)" (keyup.enter)="addSkill(currentSkill)" type="text" placeholder="Add skill">
+        <button color="primary" (click)="addSkill(currentSkill)">Add</button>
+        <div ngClass="skills">
+            <app-skill *ngFor="let sk of skills" (delete)="deleteSkill(sk)" skill={{sk}}></app-skill>
+        </div>
+    </div>
+    <form [formGroup]="registerForm">
+        <textarea formControlName="about"
+            placeholder="Tell recruiters something about yourself (now or later)"></textarea>
+        <br>
+        <label>How would you like your page URL to look like? <em>website.com/url</em></label>
+        <br>
+        <input formControlName="url" placeholder="url">
+    </form>
+    <div ngClass="buttons">
+        <button color="primary" (click)="setVisible(1)">Back</button>
+        <button color="primary" (click)="setVisible(3)">Next</button>
+    </div>
+</div>
+
+<div ngClass="third" *ngIf="visible === 3">
+    <p>Set a password and review your account</p>
+    <form [formGroup]="registerForm">
+        <input formControlName="password" type="password" placeholder="Password">
+        <input formControlName="passwordConfirm" type="password" placeholder="Confirm Password">
+    </form>
+    <div ngClass="review">
+        <p>First Name: {{registerForm.value.firstName}}</p>
+        <p>Last Name: {{registerForm.value.lastName}}</p>
+        <p>Email: {{registerForm.value.email}}</p>
+        <p>Skills: {{skills}}</p>
+        <p>About: {{registerForm.value.about}}</p>
+        <p>URL: {{registerForm.value.url}}</p>
+    </div>
+    <p>{{message}}</p>
+    <div ngClass="buttons">
+        <button color="primary" (click)="setVisible(2)">Back</button>
+        <button color="primary" (click)="register()">Register</button>
+    </div>
+</div>

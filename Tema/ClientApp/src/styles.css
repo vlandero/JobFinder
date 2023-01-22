@@ -16,5 +16,7 @@ code {
 }
 
 .router-container{
-  margin: 100px 20px;
+  margin: 100px auto;
+  max-width: 1260px;
+  padding: 0 15px;
 }

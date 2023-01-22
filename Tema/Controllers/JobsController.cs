@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Tema.Models.DTOs.Applications;
+using Tema.Models.DTOs.Finders;
 using Tema.Models.DTOs.Request.Jobs;
 using Tema.Models.DTOs.Response.Jobs;
 using Tema.Models.Jobs;
@@ -62,27 +64,8 @@ namespace Tema.Controllers
             try
             {
                 await _jobService.Create(jobToCreate);
-                return Ok(j);
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
-        }
-
-        [HttpPost("get-applicants")]
-        public async Task<IActionResult> GetApplicants(long jobId)
-        {
-            try
-            {
-                Job j = _jobService.GetByPostId(jobId);
-                List<Applicant> applicants = j.Applicants;
-                List<Finder> applicantsFinders = new List<Finder>();
-                foreach (Applicant a in applicants)
-                {
-                    applicantsFinders.Add(a.Finder);
-                }
-                return Ok(applicantsFinders);
+                var newJob = _jobService.GetByPostId(jobToCreate.PostId);
+                return Ok(new JobResponseDTO(newJob, new List<FinderDTO>()));
             }
             catch (Exception e)
             {
@@ -96,7 +79,13 @@ namespace Tema.Controllers
             try
             {
                 Job j = _jobService.GetByPostId(id);
-                var ret = new JobResponseDTO(j);
+                List<Applicant> applicants = j.Applicants;
+                List<FinderDTO> applicantsFinders = new List<FinderDTO>();
+                foreach (Applicant a in applicants)
+                {
+                    applicantsFinders.Add(new FinderDTO(a.Finder, new List<ApplicationDTO>()));
+                }
+                var ret = new JobResponseDTO(j, applicantsFinders);
                 return Ok(ret);
             }
             catch (Exception e)

@@ -41,6 +41,7 @@ namespace Tema.Controllers
                 Role = Role.User,
                 DateCreated = DateTime.Now,
                 Skills = f.Skills,
+                Url = f.Url,
             };
             try
             {
@@ -129,7 +130,7 @@ namespace Tema.Controllers
             }
         }
         [HttpPost("modify-finder")]
-        public async Task<IActionResult> ModifyFinder(FinderResponseLoginDTO finder)
+        public async Task<IActionResult> ModifyFinder(FinderDTO finder)
         {
             try
             {

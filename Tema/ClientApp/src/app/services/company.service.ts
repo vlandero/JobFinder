@@ -13,38 +13,18 @@ export class CompanyService {
   constructor(private apiService: ApiService) { }
 
   async deleteAllCompanies(): Promise<ApiResponse<void>> {
-    const data = await this.apiService.request('delete', `${sub}/delete-all-companies`);
-    return new ApiResponse({
-      status: data.status,
-      data: data.data,
-      message: 'Error deleting all companies'
-    });
+    return await this.apiService.request('post', `${sub}/register-finder`, {}, 'Error deleting all companies');
   }
 
   async deleteCompany(name: string): Promise<ApiResponse<void>> {
-    const data = await this.apiService.request('delete', `${sub}/delete-company/${name}`);
-    return new ApiResponse({
-      status: data.status,
-      data: data.data,
-      message: `Error deleting company ${name}`
-    });
+    return await this.apiService.request('delete', `${sub}/delete-company/${name}`, name, `Error deleting company ${name}`);
   }
 
   async modifyCompany(name: string): Promise<ApiResponse<void>> {
-    const data = await this.apiService.request('post', `${sub}/modify-company/${name}`);
-    return new ApiResponse({
-      status: data.status,
-      data: data.data,
-      message: `Error modifying company ${name}`
-    });
+    return await this.apiService.request('post', `${sub}/modify-company/${name}`, name, `Error modifying company ${name}`);
   }
 
   async getCompany(name: string): Promise<ApiResponse<CompanyResponse>> {
-    const data = await this.apiService.request('get', `${sub}/get-company/${name}`);
-    return new ApiResponse({
-      status: data.status,
-      data: data.data,
-      message: `Error getting company ${name}`
-    });
+    return await this.apiService.request('get', `${sub}/get-company/${name}`, name, `Error getting company ${name}`);
   }
 }

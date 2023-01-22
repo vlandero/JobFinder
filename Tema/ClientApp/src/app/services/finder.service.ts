@@ -1,7 +1,13 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
+import ApiResponse from 'src/models/ApiResponse.model';
+import FinderRequestRegister from 'src/models/FinderRequestRegister.model';
+import UserRequestLogin from 'src/models/UserRequestLogin.model';
+import Finder from 'src/models/Finder.model';
+import FinderResponseLogin from 'src/models/FinderResponseLogin.model';
+import Applicant from 'src/models/Applicant.model';
 
-const sub = 'Companies'
+const sub = 'Finders'
 
 @Injectable({
   providedIn: 'root'
@@ -10,35 +16,36 @@ export class FinderService {
 
   constructor(private apiService: ApiService) { }
 
-  registerFinder(){
-    this.apiService.request('post', `${sub}/register-finder`);
+
+  async registerFinder(dto: FinderRequestRegister) : Promise<ApiResponse<void>>{
+    return await this.apiService.request('post', `${sub}/register-finder`, dto, 'Error registering finder');
   }
 
-  loginFinder(){
-    this.apiService.request('post', `${sub}/login-finder`);
+  async loginFinder(dto: UserRequestLogin) : Promise<ApiResponse<FinderResponseLogin>>{
+    return await this.apiService.request('post', `${sub}/login-finder`, dto, 'Error logging in');
   }
 
-  deleteAllFinders(){
-    this.apiService.request('delete', `${sub}/delete-all-finders`);
+  async deleteAllFinders() : Promise<ApiResponse<void>>{
+    return await this.apiService.request('delete', `${sub}/delete-all-finders`, {}, 'Error deleting all finders');
   }
 
-  deleteFinder(email: string){
-    this.apiService.request('delete', `${sub}/delete-finder/${email}`);
+  async deleteFinder(email: string) : Promise<ApiResponse<void>>{
+    return await this.apiService.request('delete', `${sub}/delete-finder`, email, `Error deleting finder ${email}`);
   }
 
-  applyToJob(){
-    this.apiService.request('post', `${sub}/apply-to-job`);
+  async applyToJob(dto: Applicant) : Promise<ApiResponse<void>>{
+    return await this.apiService.request('post', `${sub}/apply-to-job`, dto, 'Error applying to job');
   }
 
-  modifyFinder(){
-    this.apiService.request('post', `${sub}/modify-finder`);
+  async modifyFinder(dto: Finder) : Promise<ApiResponse<void>>{
+    return await this.apiService.request('post', `${sub}/modify-finder`, dto, 'Error modifying finder');
   }
 
-  getFinderByEmail(email: string){
-    this.apiService.request('get', `${sub}/get-finder/${email}`);
+  async getFinderByEmail(email: string) : Promise<ApiResponse<Finder>>{
+    return await this.apiService.request('get', `${sub}/get-finder/${email}`, email, `Error getting finder ${email}`);
   }
 
-  getFinderByUrl(url: string){
-    this.apiService.request('get', `${sub}/get-finder-url/${url}`);
+  async getFinderByUrl(url: string) : Promise<ApiResponse<Finder>>{
+    return await this.apiService.request('get', `${sub}/get-finder-url/${url}`, url, `Error getting finder ${url}`);
   }
 }

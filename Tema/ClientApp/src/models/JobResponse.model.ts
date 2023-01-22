@@ -1,3 +1,5 @@
+import Finder from "./Finder.model";
+
 export default class JobResponse{
     postId!: number;
     name!: string;
@@ -6,5 +8,6 @@ export default class JobResponse{
     location!: string;
     salary?: string;
     creatorEmail!: string;
+    Applicants!: Finder[];
     dateCreated!: Date;
 }

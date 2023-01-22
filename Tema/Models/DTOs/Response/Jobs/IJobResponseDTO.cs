@@ -1,4 +1,6 @@
-﻿namespace Tema.Models.DTOs.Response.Jobs
+﻿using Tema.Models.DTOs.Finders;
+
+namespace Tema.Models.DTOs.Response.Jobs
 {
     public interface IJobResponseDTO
     {
@@ -9,6 +11,7 @@
         string Category { get; set; }
         string CreatorEmail { get; set; }
         string? Salary { get; set; }
+        List<FinderDTO> Applicants { get; set; }
         DateTime? DateCreated { get; set; }
     }
 }

@@ -136,7 +136,7 @@ namespace Tema.Controllers
         }
         
         [HttpPost("modify-seeker")]
-        public async Task<IActionResult> ModifySeeker(SeekerResponseLoginDTO seeker)
+        public async Task<IActionResult> ModifySeeker(SeekerDTO seeker)
         {
             try
             {

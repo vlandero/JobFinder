@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-homepage',
@@ -8,14 +7,27 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class HomepageComponent implements OnInit {
 
-  constructor(private api: ApiService) { }
+  showSeekerModal = false;
+  showFinderModal = false;
+
+  constructor() { }
 
   ngOnInit(): void {
   }
 
-  public async getData() {
-    const data = await this.api.request('get', 'api/Companies/test/asa');
-    console.log(data.data);
+  openFinder() {
+    this.showFinderModal = true;
   }
 
+  openSeeker() {
+    this.showSeekerModal = true;
+  }
+
+  onFinderClose(){
+    this.showFinderModal = false;
+  }
+
+  onSeekerClose(){
+    this.showSeekerModal = false;
+  }
 }

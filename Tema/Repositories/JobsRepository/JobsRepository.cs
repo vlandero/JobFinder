@@ -1,5 +1,6 @@
 ﻿using Tema.Models;
 using Tema.Models.DTOs.Applications;
+using Tema.Models.DTOs.Finders;
 using Tema.Models.DTOs.Response.Jobs;
 using Tema.Models.Jobs;
 using Tema.Repositories.GenericRepository;
@@ -17,7 +18,7 @@ namespace Tema.Repositories.JobsRepository
         {
             var x = from job in _table
                    orderby job.DateCreated descending
-                   select new JobResponseDTO(job);
+                   select new JobResponseDTO(job, new List<FinderDTO>());
             
             return x.ToList();
         }
@@ -27,7 +28,7 @@ namespace Tema.Repositories.JobsRepository
                     join s in _context.Seekers on job.Seeker.Id equals s.Id
                     join c in _context.Companies on s.Company.Id equals c.Id
                     where c.Id == id
-                    select new JobResponseDTO(job);
+                    select new JobResponseDTO(job, new List<FinderDTO>());
             return x.ToList();
         }
         public List<ApplicationDTO> GetAllFromFinder(Guid id)
@@ -46,7 +47,7 @@ namespace Tema.Repositories.JobsRepository
             var x = from job in _context.Jobs
                     join s in _context.Seekers on job.Seeker.Id equals s.Id
                     where s.Id == id
-                    select new JobResponseDTO(job);
+                    select new JobResponseDTO(job, new List<FinderDTO>());
             return x.ToList();
             
         }
