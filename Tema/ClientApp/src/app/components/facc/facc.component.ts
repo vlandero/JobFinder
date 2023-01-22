@@ -53,6 +53,8 @@ export class FAccComponent implements OnInit {
       const res = await this.finderService.registerFinder(toSend);
       if(res.status === 200)
         this.router.navigate(['/login']);
+      else
+        this.message = res.message;
       console.log(res);
       console.log(toSend);
     }
