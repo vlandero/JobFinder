@@ -1,1 +1,51 @@
-<p>sacc works!</p>
+<div ngClass="first" *ngIf="visible === 1">
+    <p>Are you ready to take your job seeking to the next level?</p>
+    <p>Start by completing our registration form: </p>
+    <form [formGroup]="registerForm">
+        <input formControlName="firstName" placeholder="First Name">
+        <input formControlName="lastName" placeholder="Last Name">
+        <input formControlName="email" placeholder="Email">
+    </form>
+    <div ngClass="buttons">
+        <button color="primary" (click)="cancel()">Cancel</button>
+        <button color="primary" (click)="setVisible(2)">Join existing company</button>
+        <button color="primary" (click)="setVisible(3)">Create company</button>
+    </div>
+</div>
+
+<div ngClass="second" *ngIf="visible === 2">
+    <p>Join an existing company</p>
+
+    <form [formGroup]="registerForm">
+        <app-auto-complete [allSuggestions]="allSuggestions" (textEmitter)="onChangeJoinedCompany($event)"></app-auto-complete>
+    </form>
+
+    <div ngClass="buttons">
+        <button color="primary" (click)="setVisible(1)">Back</button>
+        <button color="primary" (click)="nextJoiner()">Next</button>
+    </div>
+</div>
+
+<div ngClass="third" *ngIf="visible === 3">
+    <p>Create your company</p>
+
+    <form [formGroup]="companyForm">
+        <input formControlName="companyName" placeholder="Company Name">
+        <input formControlName="companyLocation" placeholder="Location">
+        <input formControlName="companyDescription" placeholder="Description">
+    </form>
+
+    <div ngClass="buttons">
+        <button color="primary" (click)="setVisible(1)">Back</button>
+        <button color="primary" (click)="nextCreator()">Next</button>
+    </div>
+</div>
+
+<div ngClass="review" *ngIf="visible === 4">
+    <p>Review your data</p>
+
+    <div ngClass="buttons">
+        <button color="primary" (click)="setVisible(1)">Back</button>
+        <button color="primary" (click)="register()">Register</button>
+    </div>
+</div>

@@ -12,7 +12,9 @@ import { SAccComponent } from './components/sacc/sacc.component';
 import { FAccComponent } from './components/facc/facc.component';
 import { LoginComponent } from './components/login/login.component';
 import { ModalComponent } from './components/modal/modal.component';
-import { SkillComponent } from './skill/skill.component';
+import { SkillComponent } from './components/skill/skill.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AutoCompleteComponent } from './components/auto-complete/auto-complete.component';
 
 @NgModule({
   entryComponents: [FAccComponent],
@@ -25,12 +27,14 @@ import { SkillComponent } from './skill/skill.component';
     LoginComponent,
     ModalComponent,
     SkillComponent,
+    AutoCompleteComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
     RouterModule.forRoot([
       { path: '', component: HomepageComponent, pathMatch: 'full' },
       { path: 'login', component: LoginComponent },

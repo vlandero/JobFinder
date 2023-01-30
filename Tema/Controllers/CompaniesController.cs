@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Tema.Models.Companies;
 using Tema.Models.DTOs.Companies;
+using Tema.Models.DTOs.Response.Jobs;
 using Tema.Services.Companies;
 using Tema.Services.Jobs;
 
@@ -85,6 +86,25 @@ namespace Tema.Controllers
         public async Task<IActionResult> TestApi(string name)
         {
             return BadRequest(name);
+        }
+        [HttpGet("get-all-companies")]
+        public async Task<IActionResult> GetAllCompanies()
+        {
+            try
+            {
+                var companies = await _companyService.GetAll();
+                var dtos = new List<CompanyResponseDTO>();
+                foreach (var c in companies)
+                {
+                    var dto = new CompanyResponseDTO(c, new List<JobResponseDTO> { });
+                    dtos.Add(dto);
+                }
+                return Ok(dtos);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
     }
 }

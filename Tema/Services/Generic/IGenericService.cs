@@ -10,5 +10,6 @@ namespace Tema.Services.Generic
         T GetById(Guid id);
         Task<T> GetByIdAsync(Guid id);
         void Update(T entity);
+        Task<List<T>> GetAll();
     }
 }

@@ -1,0 +1,4 @@
+<input type="text" [(ngModel)]="query" (keyup)="search()">
+<ul ngClass="suggestions-list" *ngIf="showList">
+  <li *ngFor="let suggestion of suggestions" (click)="setValue(suggestion)">{{suggestion}}</li>
+</ul>

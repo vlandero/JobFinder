@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Tema.Models.DTOs.Applicants;
+using Tema.Models.DTOs.Applications;
 using Tema.Models.DTOs.Finders;
 using Tema.Models.DTOs.Request.Users.Login;
 using Tema.Models.DTOs.Request.Users.Register;
@@ -173,6 +174,25 @@ namespace Tema.Controllers
                 var jobsApplied = _jobService.GetAllFromFinder(f.Id);
                 var dto = new FinderDTO(f, jobsApplied);
                 return Ok(dto);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+        [HttpGet("get-all-finders")]
+        public async Task<IActionResult> GetAllFinders()
+        {
+            try
+            {
+                var finders = await _finderService.GetAll();
+                var dtos = new List<FinderDTO> { };
+                foreach (var f in finders)
+                {
+                    var dto = new FinderDTO(f, new List<ApplicationDTO> { });
+                    dtos.Add(dto);
+                }
+                return Ok(dtos);
             }
             catch (Exception e)
             {

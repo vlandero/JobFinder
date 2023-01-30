@@ -1,8 +1,8 @@
-import CompanyResponse from "./CompanyResponse.model";
+import CompanyRequest from "./CompanyRequest.model";
 import UserRequestRegister from "./UserRequestRegister.model";
 
 
 export default class SeekerRequestRegister extends UserRequestRegister {
-    company!: CompanyResponse;
+    company!: CompanyRequest;
     created!: boolean;
 }

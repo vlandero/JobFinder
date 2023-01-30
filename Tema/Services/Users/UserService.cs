@@ -1,6 +1,4 @@
 ﻿using Tema.Helpers.JwtHelpers;
-using Tema.Models.DTOs.Request.Users.Login;
-using Tema.Models.DTOs.Response.Users.Login;
 using Tema.Models.Users.BaseUser;
 using Tema.Repositories.GenericRepository;
 using Tema.Repositories.UsersRepository.GenericUsersRepository;

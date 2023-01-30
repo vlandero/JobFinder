@@ -38,5 +38,9 @@ namespace Tema.Services.Generic
             _repository.Update(entity);
             _repository.Save();
         }
+        public async Task<List<T>> GetAll()
+        {
+            return await _repository.GetAllAsync();
+        }
     }
 }

@@ -27,4 +27,8 @@ export class CompanyService {
   async getCompany(name: string): Promise<ApiResponse<CompanyResponse>> {
     return await this.apiService.request('get', `${sub}/get-company/${name}`, name, `Error getting company ${name}`);
   }
+
+  async getAllCompanies(): Promise<ApiResponse<CompanyResponse[]>> {
+    return await this.apiService.request('get', `${sub}/get-all-companies`, {}, 'Error getting all companies');
+  }
 }

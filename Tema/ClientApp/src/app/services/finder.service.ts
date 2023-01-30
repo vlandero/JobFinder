@@ -48,4 +48,8 @@ export class FinderService {
   async getFinderByUrl(url: string) : Promise<ApiResponse<Finder>>{
     return await this.apiService.request('get', `${sub}/get-finder-url/${url}`, url, `Error getting finder ${url}`);
   }
+
+  async getAllFinders() : Promise<ApiResponse<Finder[]>>{
+    return await this.apiService.request('get', `${sub}/get-all-finders`, {}, 'Error getting all finders');
+  }
 }
