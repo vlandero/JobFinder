@@ -14,5 +14,6 @@ namespace Tema.Models.DTOs.Request.Users.Register
         public string LastName { get; set; }
         [Required]
         public string Url { get; set; }
+        public string? ProfilePicture { get; set; }
     }
 }

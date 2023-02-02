@@ -44,7 +44,9 @@ namespace Tema.Controllers
                 Role = Role.User,
                 ListedJobs = new List<Job>() { },
                 IsCreator = s.Created,
-                DateCreated = DateTime.Now
+                DateCreated = DateTime.Now,
+                Url = s.Url,
+                ProfilePicture = s.ProfilePicture,
             };
             if (s.Created == true)
             {

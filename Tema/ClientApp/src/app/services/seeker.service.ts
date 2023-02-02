@@ -7,6 +7,7 @@ import UserRequestLogin from 'src/models/UserRequestLogin.model';
 import SeekerResponseLogin from 'src/models/SeekerResponseLogin.model';
 import Seeker from 'src/models/Seeker.model';
 import TransferOwnership from 'src/models/TransferOwnership.model';
+import { AuthService } from './auth.service';
 
 const sub = 'Seekers'
 
@@ -15,14 +16,22 @@ const sub = 'Seekers'
 })
 export class SeekerService {
 
-  constructor(private apiService: ApiService) { }
+  constructor(private apiService: ApiService, private authService: AuthService) { }
 
   async registerSeeker(dto: SeekerRequestRegister) : Promise<ApiResponse<void>>{
     return await this.apiService.request('post', `${sub}/register-seeker`, dto, 'Error registering seeker');
   }
 
   async loginSeeker(dto: UserRequestLogin) : Promise<ApiResponse<SeekerResponseLogin>>{
-    return await this.apiService.request('post', `${sub}/login-seeker`, dto, 'Error logging in seeker');
+    const x = await this.apiService.request<SeekerResponseLogin>('post', `${sub}/login-seeker`, dto, 'Error logging in seeker');
+    if(x.status === 200){
+      const tokenInfo = await this.authService.JWTDecode(x.data!.token);
+      if(tokenInfo !== null){
+        console.log(tokenInfo);
+      }
+    }
+    return x;
+    
   }
 
   async deleteAllSeekers() : Promise<ApiResponse<void>>{

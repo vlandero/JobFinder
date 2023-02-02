@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
+import { JwtModule } from '@auth0/angular-jwt';
 
 import { AppComponent } from './app.component';
 import { HomepageComponent } from './components/homepage/homepage.component';

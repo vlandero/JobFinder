@@ -4,4 +4,5 @@ export default class UserRequestRegister{
     firstName!: string;
     lastName!: string;
     url!: string;
+    profilePicture?: string;
 }

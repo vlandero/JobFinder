@@ -82,11 +82,6 @@ namespace Tema.Controllers
             }
         }
 
-        [HttpGet("test/{name}")]
-        public async Task<IActionResult> TestApi(string name)
-        {
-            return BadRequest(name);
-        }
         [HttpGet("get-all-companies")]
         public async Task<IActionResult> GetAllCompanies()
         {

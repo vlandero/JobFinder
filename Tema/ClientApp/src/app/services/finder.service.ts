@@ -6,6 +6,7 @@ import UserRequestLogin from 'src/models/UserRequestLogin.model';
 import Finder from 'src/models/Finder.model';
 import FinderResponseLogin from 'src/models/FinderResponseLogin.model';
 import Applicant from 'src/models/Applicant.model';
+import { AuthService } from './auth.service';
 
 const sub = 'Finders'
 
@@ -14,7 +15,7 @@ const sub = 'Finders'
 })
 export class FinderService {
 
-  constructor(private apiService: ApiService) { }
+  constructor(private apiService: ApiService, private authService: AuthService) { }
 
 
   async registerFinder(dto: FinderRequestRegister) : Promise<ApiResponse<void>>{
@@ -22,7 +23,14 @@ export class FinderService {
   }
 
   async loginFinder(dto: UserRequestLogin) : Promise<ApiResponse<FinderResponseLogin>>{
-    return await this.apiService.request('post', `${sub}/login-finder`, dto, 'Error logging in');
+    const x =  await this.apiService.request<FinderResponseLogin>('post', `${sub}/login-finder`, dto, 'Error logging in');
+    if(x.status === 200){
+      const tokenInfo = await this.authService.JWTDecode(x.data!.token);
+      if(tokenInfo !== null){
+        console.log(tokenInfo);
+      }
+    }
+    return x;
   }
 
   async deleteAllFinders() : Promise<ApiResponse<void>>{

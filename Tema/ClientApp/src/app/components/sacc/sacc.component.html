@@ -5,6 +5,10 @@
         <input formControlName="firstName" placeholder="First Name">
         <input formControlName="lastName" placeholder="Last Name">
         <input formControlName="email" placeholder="Email">
+        <br />
+        <label>How would you like your page URL to look like? <em>website.com/url</em></label>
+        <br>
+        <input formControlName="url" placeholder="url">
     </form>
     <div ngClass="buttons">
         <button color="primary" (click)="cancel()">Cancel</button>
@@ -32,20 +36,49 @@
     <form [formGroup]="companyForm">
         <input formControlName="companyName" placeholder="Company Name">
         <input formControlName="companyLocation" placeholder="Location">
-        <input formControlName="companyDescription" placeholder="Description">
+        <br />
+        <textarea formControlName="companyDescription"
+            placeholder="Description"></textarea>
     </form>
-
+    
     <div ngClass="buttons">
         <button color="primary" (click)="setVisible(1)">Back</button>
         <button color="primary" (click)="nextCreator()">Next</button>
     </div>
 </div>
 
-<div ngClass="review" *ngIf="visible === 4">
-    <p>Review your data</p>
-
+<div *ngIf="visible === 4">
+    <p>Review your data and set a password</p>
+    <form [formGroup]="registerForm">
+        <input formControlName="password" type="password" placeholder="Password">
+        <input formControlName="passwordConfirm" type="password" placeholder="Confirm Password">
+    </form>
+    <div ngClass="review">
+        <p>First Name: {{registerForm.value.firstName}}</p>
+        <p>Last Name: {{registerForm.value.lastName}}</p>
+        <p>Email: {{registerForm.value.email}}</p>
+        <br />
+        <p>Company Name: {{companyForm.value.companyName}}</p>
+        <p>Company Location: {{companyForm.value.companyLocation}}</p>
+        <p>Company Description: {{companyForm.value.companyDescription}}</p>
+    </div>
     <div ngClass="buttons">
         <button color="primary" (click)="setVisible(1)">Back</button>
         <button color="primary" (click)="register()">Register</button>
     </div>
 </div>
+
+<div ngClass="review" *ngIf="visible === 5">
+    <p>Review your data</p>
+    <div>
+        <p>First Name: {{registerForm.value.firstName}}</p>
+        <p>Last Name: {{registerForm.value.lastName}}</p>
+        <p>Email: {{registerForm.value.email}}</p>
+        <p>Joined company: {{joinedCompany}}</p>
+    </div>
+    <div ngClass="buttons">
+        <button color="primary" (click)="setVisible(1)">Back</button>
+        <button color="primary" (click)="register()">Register</button>
+    </div>
+</div>
+{{this.message}}

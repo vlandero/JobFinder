@@ -3,6 +3,6 @@ import UserRequestRegister from "./UserRequestRegister.model";
 
 
 export default class SeekerRequestRegister extends UserRequestRegister {
-    company!: CompanyRequest;
+    companyDto!: CompanyRequest;
     created!: boolean;
 }

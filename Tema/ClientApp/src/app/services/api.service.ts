@@ -19,7 +19,7 @@ export class ApiService {
         url: `${url}/api/${path}`,
         data,
         ...config,
-        validateStatus: (status) => status < 500
+        validateStatus: () => true
       });
     } catch (error) {
       console.error(error);
@@ -28,6 +28,7 @@ export class ApiService {
   }
   async request<T>(method: 'get' | 'post' | 'put' | 'delete', url: string, data: any, err: string): Promise<ApiResponse<T>> {
     const ret = await this.call(method, url, data);
+    console.log('after call', ret);
     return new ApiResponse({
       status: ret.status,
       data: ret.data,

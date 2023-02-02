@@ -1,1 +1,9 @@
-<p>login works!</p>
+<form [formGroup]="loginForm">
+    <input formControlName="username" placeholder="Username">
+    <input type="password" formControlName="password" placeholder="Password">
+    <button (click)="login()">Login</button>
+    <br />
+    <button (click)="setActive(1)" [ngClass]="{'act':active===1}">Seeker</button>
+    <button (click)="setActive(2)" [ngClass]="{'act':active===2}">Finder</button>
+</form>
+<p>{{message}</p>

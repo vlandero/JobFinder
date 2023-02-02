@@ -17,6 +17,7 @@ export class FAccComponent implements OnInit {
     passwordConfirm: ['', Validators.required],
     about: [''],
     url: ['', Validators.required],
+    profilePicture: [''],
   });
   currentSkill = '';
   message = '';
@@ -48,7 +49,8 @@ export class FAccComponent implements OnInit {
         password: this.registerForm.value.password!,
         about: this.registerForm.value.about!,
         url: this.registerForm.value.url!,
-        skills: this.skills
+        skills: this.skills,
+        profilePicture: this.registerForm.value.profilePicture!
       }
       const res = await this.finderService.registerFinder(toSend);
       if(res.status === 200)

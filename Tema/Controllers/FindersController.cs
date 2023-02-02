@@ -43,6 +43,7 @@ namespace Tema.Controllers
                 DateCreated = DateTime.Now,
                 Skills = f.Skills,
                 Url = f.Url,
+                ProfilePicture = f.ProfilePicture,
             };
             try
             {
