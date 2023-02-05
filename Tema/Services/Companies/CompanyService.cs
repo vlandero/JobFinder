@@ -17,6 +17,16 @@ namespace Tema.Services.Companies
         {
             return await _companyRepository.GetByName(name);
         }
+        public Company GetByNameSync(string name)
+        {
+            return _companyRepository.GetByNameSync(name);
+        }
+        public Company GetCompanyFromSeeker(string email)
+        {
+            System.Diagnostics.Debug.WriteLine("GetCompanyFromSeeker "+ email);
+
+            return _companyRepository.GetCompanyFromSeeker(email);
+        }
 
     }
 }

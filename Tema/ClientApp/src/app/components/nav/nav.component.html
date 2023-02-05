@@ -2,7 +2,8 @@
     <div class="nav-left"></div>
     <div class="nav-right">
       <a routerLink="" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active" ngClass="nav-link">Home</a>
-      <a routerLink="jobs" routerLinkActive="active" ngClass="nav-link">Jobs</a>
-      <a routerLink="login" routerLinkActive="active" ngClass="nav-link">Login</a>
+      <a routerLink="search" routerLinkActive="active" ngClass="nav-link">Search</a>
+      <a routerLink="login" *ngIf="!loggedIn" routerLinkActive="active" ngClass="nav-link">Login</a>
+      <a routerLink="profile" *ngIf="loggedIn" routerLinkActive="active" ngClass="nav-link">{{extra}}</a>
     </div>
 </nav>

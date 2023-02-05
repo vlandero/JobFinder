@@ -7,8 +7,8 @@ namespace Tema.Models.Users.Seeker
 {
     public interface ISeeker : IUser
     {
-        public Company Company { get; set; }
+        public Company? Company { get; set; }
         public bool IsCreator { get; set; }
-        public List<Job> ListedJobs { get; set; }
+        public List<Job>? ListedJobs { get; set; }
     }
 }

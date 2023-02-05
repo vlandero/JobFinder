@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using System.Web.Helpers;
 using Tema.Helpers.Authorization;
+using Tema.Migrations;
 using Tema.Models.Companies;
 using Tema.Models.DTOs.Request.Users.Login;
 using Tema.Models.DTOs.Request.Users.Register;
@@ -200,7 +203,22 @@ namespace Tema.Controllers
         {
             try
             {
-                Seeker s = await _seekerService.GetByUrl(url);
+                Seeker s = await _seekerService.GetByUrlWithCOmpanyId(url);
+                var listedJobs = _jobService.GetAllFromSeeker(s.Id);
+                var ret = new SeekerDTO(s, listedJobs);
+                return Ok(ret);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+        [HttpGet("get-seeker-id/{id}")]
+        public async Task<IActionResult> GetSeekerById(Guid id)
+        {
+            try
+            {
+                Seeker s = await _seekerService.GetByIdWithCompanyId(id);
                 var listedJobs = _jobService.GetAllFromSeeker(s.Id);
                 var ret = new SeekerDTO(s, listedJobs);
                 return Ok(ret);

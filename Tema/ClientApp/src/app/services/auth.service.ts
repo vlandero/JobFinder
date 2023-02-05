@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import * as jwt from 'jsonwebtoken'
+import jwt from 'jwt-decode'
 
 const secret = 'qwertyuiopasdfghjklzxcvbnm123456'
 
@@ -12,16 +12,20 @@ export class AuthService {
 
   isLoggedIn() {
     const token = localStorage.getItem('token');
-    return token != null;
+    return token !== null;
+  }
+
+  whoLoggedIn(){
+    return localStorage.getItem('user');
   }
 
   logout() {
     localStorage.removeItem('token');
   }
 
-  async JWTDecode(token: string) {
+  JWTDecode(token: string) {
     try{
-      const tk = jwt.verify(token, secret);
+      const tk = jwt(token);
       return tk;
     }catch(e){
       return null;

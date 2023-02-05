@@ -181,6 +181,21 @@ namespace Tema.Controllers
                 return BadRequest(e.Message);
             }
         }
+        [HttpGet("get-finder-id/{id}")]
+        public async Task<IActionResult> GetFinderById(Guid id)
+        {
+            try
+            {
+                Finder f = _finderService.GetById(id);
+                var jobsApplied = _jobService.GetAllFromFinder(f.Id);
+                var dto = new FinderDTO(f, jobsApplied);
+                return Ok(dto);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
         [HttpGet("get-all-finders")]
         public async Task<IActionResult> GetAllFinders()
         {

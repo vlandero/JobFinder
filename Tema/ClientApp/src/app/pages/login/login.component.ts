@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { FinderService } from 'src/app/services/finder.service';
 import { SeekerService } from 'src/app/services/seeker.service';
 import ApiResponse from 'src/models/ApiResponse.model';
@@ -18,7 +19,7 @@ export class LoginComponent implements OnInit {
   });
   active: number = 1;
   message = ''
-  constructor(private readonly formBuilder: FormBuilder, private seekerService: SeekerService, private finderService: FinderService) { }
+  constructor(private readonly formBuilder: FormBuilder, private seekerService: SeekerService, private finderService: FinderService, private router: Router) { }
   activeMap: Record<number, string> = {
     1: 'seeker',
     2: 'finder',
@@ -42,10 +43,12 @@ export class LoginComponent implements OnInit {
           password: this.loginForm.value.password!,
         })
       }
+      console.log(tk);
       if (tk.status !== 200) {
         this.message = tk.message;
         return;
       }
+      window.location.href = '/profile';
     }
     else {
       this.message = 'Please fill all the fields'

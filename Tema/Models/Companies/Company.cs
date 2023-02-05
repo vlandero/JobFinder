@@ -14,7 +14,7 @@ namespace Tema.Models.Companies
         [Required]
         public string Location { get; set; }
         [Required]
-        public List<Seeker> Employees { get; set; }
+        public List<Seeker>? Employees { get; set; }
         public Guid CreatorId { get; set; }
     }
 }

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
 import ApiResponse from 'src/models/ApiResponse.model';
-import JobResponse from 'src/models/JobResponse.model';
 import SeekerRequestRegister from 'src/models/SeekerRequestRegister.model';
 import UserRequestLogin from 'src/models/UserRequestLogin.model';
 import SeekerResponseLogin from 'src/models/SeekerResponseLogin.model';
@@ -18,6 +17,20 @@ export class SeekerService {
 
   constructor(private apiService: ApiService, private authService: AuthService) { }
 
+  async getLoggedIn() : Promise<ApiResponse<Seeker>>{
+    const userType = localStorage.getItem('user');
+    if(userType !== 'seeker')
+      return {status: 401, data: null, message: 'Not logged in as seeker'};
+    const token = localStorage.getItem('token')!;
+    const tokenInfo: any = this.authService.JWTDecode(token);
+    if(!tokenInfo){
+      return {status: 401, data: null, message: 'Error while parsing the token'};
+    }
+    const guid: string = tokenInfo.id;
+    const x = await this.getSeekerById(guid);
+    return x;
+  }
+
   async registerSeeker(dto: SeekerRequestRegister) : Promise<ApiResponse<void>>{
     return await this.apiService.request('post', `${sub}/register-seeker`, dto, 'Error registering seeker');
   }
@@ -25,10 +38,8 @@ export class SeekerService {
   async loginSeeker(dto: UserRequestLogin) : Promise<ApiResponse<SeekerResponseLogin>>{
     const x = await this.apiService.request<SeekerResponseLogin>('post', `${sub}/login-seeker`, dto, 'Error logging in seeker');
     if(x.status === 200){
-      const tokenInfo = await this.authService.JWTDecode(x.data!.token);
-      if(tokenInfo !== null){
-        console.log(tokenInfo);
-      }
+      localStorage.setItem('token', x.data!.token);
+      localStorage.setItem('user', 'seeker');
     }
     return x;
     
@@ -56,6 +67,10 @@ export class SeekerService {
 
   async getSeekerByUrl(url: string) : Promise<ApiResponse<void>>{
     return await this.apiService.request('get', `${sub}/get-seeker-url/${url}`, {}, 'Error getting seeker');
+  }
+
+  async getSeekerById(id: string) : Promise<ApiResponse<Seeker>>{
+    return await this.apiService.request('get', `${sub}/get-seeker-id/${id}`, {}, 'Error getting seeker');
   }
 
 }

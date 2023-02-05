@@ -7,6 +7,8 @@ namespace Tema.Services.Seekers
 {
     public interface ISeekerService : IUserService<Seeker>
     {
-        public Task<SeekerResponseLoginDTO> Login(UserRequestLoginDTO user);
+        Task<SeekerResponseLoginDTO> Login(UserRequestLoginDTO user);
+        Task<Seeker> GetByIdWithCompanyId(Guid id);
+        Task<Seeker> GetByUrlWithCOmpanyId(string url);
     }
 }

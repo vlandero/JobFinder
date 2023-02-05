@@ -17,6 +17,19 @@ export class FinderService {
 
   constructor(private apiService: ApiService, private authService: AuthService) { }
 
+  async getLoggedIn() : Promise<ApiResponse<Finder>>{
+    const userType = localStorage.getItem('user');
+    if(userType !== 'finder')
+      return {status: 401, data: null, message: 'Not logged in as finder'};
+    const token = localStorage.getItem('token')!;
+    const tokenInfo: any = this.authService.JWTDecode(token);
+    if(!tokenInfo){
+      return {status: 401, data: null, message: 'Error while parsing the token'};
+    }
+    const guid: string = tokenInfo.id;
+    const x = await this.getFinderById(guid);
+    return x;
+  }
 
   async registerFinder(dto: FinderRequestRegister) : Promise<ApiResponse<void>>{
     return await this.apiService.request('post', `${sub}/register-finder`, dto, 'Error registering finder');
@@ -25,10 +38,8 @@ export class FinderService {
   async loginFinder(dto: UserRequestLogin) : Promise<ApiResponse<FinderResponseLogin>>{
     const x =  await this.apiService.request<FinderResponseLogin>('post', `${sub}/login-finder`, dto, 'Error logging in');
     if(x.status === 200){
-      const tokenInfo = await this.authService.JWTDecode(x.data!.token);
-      if(tokenInfo !== null){
-        console.log(tokenInfo);
-      }
+      localStorage.setItem('token', x.data!.token);
+      localStorage.setItem('user', 'finder');
     }
     return x;
   }
@@ -55,6 +66,10 @@ export class FinderService {
 
   async getFinderByUrl(url: string) : Promise<ApiResponse<Finder>>{
     return await this.apiService.request('get', `${sub}/get-finder-url/${url}`, url, `Error getting finder ${url}`);
+  }
+
+  async getFinderById(id: string) : Promise<ApiResponse<Finder>>{
+    return await this.apiService.request('get', `${sub}/get-finder-id/${id}`, id, `Error getting finder ${id}`);
   }
 
   async getAllFinders() : Promise<ApiResponse<Finder[]>>{
