@@ -61,11 +61,11 @@ export class SeekerService {
     return await this.apiService.request('post', `${sub}/transfer-ownership`, dto, 'Error transferring ownership');
   }
 
-  async getSeekerByEmail(email: string) : Promise<ApiResponse<void>>{
+  async getSeekerByEmail(email: string) : Promise<ApiResponse<Seeker>>{
     return await this.apiService.request('get', `${sub}/get-seeker/${email}`, {}, 'Error getting seeker ' + email);
   }
 
-  async getSeekerByUrl(url: string) : Promise<ApiResponse<void>>{
+  async getSeekerByUrl(url: string) : Promise<ApiResponse<Seeker>>{
     return await this.apiService.request('get', `${sub}/get-seeker-url/${url}`, {}, 'Error getting seeker');
   }
 

@@ -19,6 +19,11 @@ import { AutoCompleteComponent } from './components/auto-complete/auto-complete.
 import { ProfileComponent } from './pages/profile/profile.component';
 import { SearchComponent } from './pages/search/search.component';
 import { AuthGuard } from './guards/auth.guard';
+import { FinderComponent } from './pages/finder/finder.component';
+import { SeekerComponent } from './pages/seeker/seeker.component';
+import { ErrorComponent } from './pages/error/error.component';
+import { CompanyComponent } from './pages/company/company.component';
+import { JobComponent } from './pages/job/job.component';
 
 @NgModule({
   entryComponents: [FAccComponent],
@@ -34,6 +39,11 @@ import { AuthGuard } from './guards/auth.guard';
     AutoCompleteComponent,
     ProfileComponent,
     SearchComponent,
+    FinderComponent,
+    SeekerComponent,
+    ErrorComponent,
+    CompanyComponent,
+    JobComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -45,6 +55,11 @@ import { AuthGuard } from './guards/auth.guard';
       { path: '', component: HomepageComponent, pathMatch: 'full' },
       { path: 'login', component: LoginComponent },
       { path: 'search', component: SearchComponent },
+      { path: 'seeker/:url', component: SeekerComponent },
+      { path: 'finder/:url', component: FinderComponent },
+      { path: 'company/:name', component: CompanyComponent },
+      { path: 'job/:id', component: JobComponent },
+      { path: 'error', component: ErrorComponent },
       { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
     ])
   ],
