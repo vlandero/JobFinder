@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Tema.Helpers.Authorization;
 using Tema.Models.Companies;
 using Tema.Models.DTOs.Companies;
 using Tema.Models.DTOs.Response.Jobs;
+using Tema.Models.Enums;
 using Tema.Services.Companies;
 using Tema.Services.Jobs;
 
@@ -19,7 +21,7 @@ namespace Tema.Controllers
             _companyService = companyService;
             _jobService = jobService;
         }
-        //[Authorization(Role.Admin)]
+        [Authorization(Role.Admin)]
         [HttpDelete("delete-all-companies")]
         public IActionResult DeleteAllCompanies()
         {

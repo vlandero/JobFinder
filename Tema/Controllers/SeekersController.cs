@@ -104,7 +104,7 @@ namespace Tema.Controllers
             }
         }
         
-        // [Authorization(Role.Admin)]
+        [Authorization(Role.Admin)]
         [HttpDelete("delete-all-seekers")]
         public IActionResult DeleteAllSeekers()
         {

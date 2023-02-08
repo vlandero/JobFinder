@@ -7,6 +7,7 @@ import Finder from 'src/models/Finder.model';
 import FinderResponseLogin from 'src/models/FinderResponseLogin.model';
 import Applicant from 'src/models/Applicant.model';
 import { AuthService } from './auth.service';
+import { JwtService } from './jwt.service';
 
 const sub = 'Finders'
 
@@ -15,14 +16,14 @@ const sub = 'Finders'
 })
 export class FinderService {
 
-  constructor(private apiService: ApiService, private authService: AuthService) { }
+  constructor(private apiService: ApiService, private jwtService: JwtService) { }
 
   async getLoggedIn() : Promise<ApiResponse<Finder>>{
     const userType = localStorage.getItem('user');
     if(userType !== 'finder')
       return {status: 401, data: null, message: 'Not logged in as finder'};
     const token = localStorage.getItem('token')!;
-    const tokenInfo: any = this.authService.JWTDecode(token);
+    const tokenInfo: any = this.jwtService.JWTDecode(token);
     if(!tokenInfo){
       return {status: 401, data: null, message: 'Error while parsing the token'};
     }

@@ -3,7 +3,6 @@ import { ApiService } from './api.service';
 import JobResponse from 'src/models/JobResponse.model';
 import ApiResponse from 'src/models/ApiResponse.model';
 import JobRequest from 'src/models/JobRequest.model';
-import Finder from 'src/models/Finder.model';
 
 const sub = 'Jobs'
 

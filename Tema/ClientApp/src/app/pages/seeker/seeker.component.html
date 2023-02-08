@@ -1,1 +1,13 @@
 <p>seeker works!</p>
+
+<div *ngIf="seeker.email">
+    <p>{{seeker.firstName}} {{seeker.lastName}}</p>
+    <p>{{seeker.email}}</p>
+    Company: <p appHighlightButton ngClass="cmp" (click)="navigateToCompany(seeker.company.name)">{{seeker.company.name}}</p>
+    <p *ngIf="seeker.listedJobs.length > 0">Jobs listed by {{seeker.firstName}} {{seeker.lastName}}:</p>
+    <div appHighlightButton ngClass="job" (click)="navigateToJob(job.postId.toString())" *ngFor="let job of seeker.listedJobs">
+        <p>{{job.name}}</p>
+        <p>{{seeker.company}}</p>
+        <p>{{job.location}}</p>
+    </div>
+</div>

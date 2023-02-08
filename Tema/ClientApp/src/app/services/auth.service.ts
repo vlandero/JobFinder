@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import jwt from 'jwt-decode'
 import Finder from 'src/models/Finder.model';
 import Seeker from 'src/models/Seeker.model';
 import { FinderService } from './finder.service';
 import { SeekerService } from './seeker.service';
+import { JwtService } from './jwt.service';
 
 const secret = 'qwertyuiopasdfghjklzxcvbnm123456'
 
@@ -25,7 +25,7 @@ export class AuthService {
       return;
     const userType = localStorage.getItem('user');
     const token = localStorage.getItem('token')!;
-    const tokenInfo: any = this.JWTDecode(token);
+    const tokenInfo: any = this.jwtService.JWTDecode(token);
     const guid: string = tokenInfo.id;
     if (!tokenInfo) {
       return;
@@ -58,7 +58,7 @@ export class AuthService {
     }
     
   }
-  constructor(private finderService: FinderService, private seekerService: SeekerService) {
+  constructor(private finderService: FinderService, private seekerService: SeekerService, private jwtService: JwtService) {
     this.init();
   }
   isLoggedIn() {
@@ -74,8 +74,4 @@ export class AuthService {
     localStorage.removeItem('token');
   }
 
-  JWTDecode(token: string) {
-    const tk = jwt(token);
-    return tk || null;
-  }
 }

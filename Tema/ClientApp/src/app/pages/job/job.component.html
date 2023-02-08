@@ -1,1 +1,13 @@
 <p>job works!</p>
+
+<div>
+    <p>{{companyName}}</p>
+    <p>{{job.name}}</p>
+    <p>{{job.category}}</p>
+    <p>{{job.description}}</p>
+    <p>{{job.location}}</p>
+    <p>{{job.salary}}</p>
+    <p>{{job.dateCreated | date}}</p>
+    <p>For further information, contact {{job.creatorEmail}}</p>
+    <button appHighlightButton *ngIf="whologgedIn === 'finder'" (click)="apply()">Apply</button>
+</div>

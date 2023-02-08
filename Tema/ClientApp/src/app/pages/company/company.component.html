@@ -1,1 +1,15 @@
 <p>company works!</p>
+
+<div>
+    <p>{{company.name}}</p>
+    <p>{{company.location}}</p>
+    <p>{{company.description}}</p>
+    <div>
+        <div ngClass="job" *ngFor="let job of company.listedJobs">
+            <p>{{job.name}}</p>
+            <p>{{job.description}}</p>
+            <p>{{job.location}}</p>
+            <p>{{job.salary}}</p>
+        </div>
+    </div>
+</div>

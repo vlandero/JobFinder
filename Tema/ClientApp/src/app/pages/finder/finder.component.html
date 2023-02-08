@@ -1,1 +1,13 @@
 <p>finder works!</p>
+<div>
+    <p>{{finder.firstName}} {{finder.lastName}}</p>
+    <div>
+        <p>Skills:</p>
+        <p *ngFor="let skill of finder.skills">{{skill}}</p>
+    </div>
+    <p>Contact: {{finder.email}}</p>
+    <div>
+        About:
+        <p>{{finder.about}}</p>
+    </div>
+</div>

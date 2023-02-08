@@ -17,7 +17,7 @@ export class CompanyComponent implements OnInit {
   company: CompanyResponse = new CompanyResponse();
   ngOnInit() {
     this.companyService.getCompany(this.name).then((res) => {
-      if(res.status !== 200) {
+      if (res.status !== 200) {
         this.router.navigate(['/error'])
         return;
       }

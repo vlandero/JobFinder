@@ -1,0 +1,9 @@
+.cmp {
+    cursor: pointer;
+    color: green;
+}
+
+.job {
+    cursor: pointer;
+    background-color: rgb(190, 190, 190);
+}

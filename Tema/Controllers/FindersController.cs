@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Tema.Helpers.Authorization;
 using Tema.Models.DTOs.Applicants;
 using Tema.Models.DTOs.Applications;
 using Tema.Models.DTOs.Finders;
@@ -71,7 +72,7 @@ namespace Tema.Controllers
             }
         }
 
-        //[Authorization(Role.Admin)]
+        [Authorization(Role.Admin)]
         [HttpDelete("delete-all-finders")]
         public IActionResult DeleteAllFinders()
         {

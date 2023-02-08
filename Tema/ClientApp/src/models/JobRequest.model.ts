@@ -4,4 +4,5 @@ export default class JobRequest{
     category?: string;
     location!: string;
     salary?: string;
+    creatorEmail!: string;
 }

@@ -1,3 +1,5 @@
+//finder account creation component
+
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';

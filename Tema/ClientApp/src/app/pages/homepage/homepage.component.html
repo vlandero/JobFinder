@@ -1,6 +1,6 @@
 <p>New here?</p>
-<button (click)="openSeeker()">Are you seeking for employees?</button>
-<button (click)="openFinder()">Are you searching for jobs?</button>
+<button appHighlightButton (click)="openSeeker()">Are you seeking for employees?</button>
+<button appHighlightButton (click)="openFinder()">Are you searching for jobs?</button>
 <app-modal *ngIf="showFinderModal" (close)="onFinderClose()"  >
     <div modal-header>
         <h2>Create a finder account!</h2>

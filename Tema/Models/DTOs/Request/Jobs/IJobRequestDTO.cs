@@ -7,5 +7,6 @@
         string Location { get; set; }
         string Category { get; set; }
         string? Salary { get; set; }
+        string CreatorEmail { get; set; }
     }
 }

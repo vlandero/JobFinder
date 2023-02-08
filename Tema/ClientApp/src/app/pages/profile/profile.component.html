@@ -1,5 +1,38 @@
 <p>profile works!</p>
 <button (click)="logout()">Logout</button>
-<div>
-    
+<div *ngIf="loggedAs === 'seeker' && loggedUser">
+    <p>{{seeker.firstName}} {{seeker.lastName}}</p>
+    <p>{{seeker.email}}</p>
+    Company: <p ngClass="cmp" (click)="navigateToCompany(seeker.company.name)">{{seeker.company.name}}</p>
+    <p *ngIf="seeker.listedJobs.length > 0">Jobs listed by {{seeker.firstName}} {{seeker.lastName}}:</p>
+    <div ngClass="job" (click)="navigateToJob(job.postId.toString())" *ngFor="let job of seeker.listedJobs">
+        <p>{{job.name}}</p>
+        <p>{{seeker.company.name}}</p>
+        <p>{{job.location}}</p>
+    </div>
+    <div>
+        <button (click)="setPostingJob()">Post job</button>
+        <div *ngIf="postingJob">
+            <form [formGroup]="jobForm">
+                <input formControlName="title" placeholder="Job Title">
+                <input formControlName="description" placeholder="Job description">
+                <input formControlName="category" placeholder="Job category">
+                <input formControlName="location" placeholder="Job location">
+                <input formControlName="salary" placeholder="Job salary">
+            </form>
+            {{jobPostMessage}}
+            <button appHighlightButton (click)="postJob()">Create</button>
+        </div>
+        
+    </div>
+</div>
+
+<div *ngIf="loggedAs === 'finder' && loggedUser">
+    <p>{{finder.firstName}} {{finder.lastName}}</p>
+    <p>{{finder.email}}</p>
+    <p *ngIf="finder.applications.length > 0">Jobs applied by {{finder.firstName}} {{finder.lastName}}:</p>
+    <div ngClass="job" (click)="navigateToJob(job.postId.toString())" *ngFor="let job of finder.applications">
+        <p>{{job.jobTitle}}</p>
+        <p>{{job.companyName}}</p>
+    </div>
 </div>

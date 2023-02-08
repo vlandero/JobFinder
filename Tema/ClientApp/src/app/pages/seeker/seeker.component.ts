@@ -27,4 +27,12 @@ export class SeekerComponent implements OnInit {
       this.router.navigate(['/error'])
     })
   }
+  navigateToCompany(url: string) {
+    this.router.navigate(['/company', url]);
+  }
+
+  navigateToJob(url: string) {
+    this.router.navigate(['/job', url]);
+  }
+  
 }

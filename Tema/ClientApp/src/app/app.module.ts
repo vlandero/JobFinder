@@ -24,6 +24,8 @@ import { SeekerComponent } from './pages/seeker/seeker.component';
 import { ErrorComponent } from './pages/error/error.component';
 import { CompanyComponent } from './pages/company/company.component';
 import { JobComponent } from './pages/job/job.component';
+import { HighlightButtonDirective } from './directives/highlight-button.directive';
+import { DatePipe } from './pipes/date.pipe';
 
 @NgModule({
   entryComponents: [FAccComponent],
@@ -44,6 +46,8 @@ import { JobComponent } from './pages/job/job.component';
     ErrorComponent,
     CompanyComponent,
     JobComponent,
+    HighlightButtonDirective,
+    DatePipe,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

@@ -6,7 +6,7 @@ import UserRequestLogin from 'src/models/UserRequestLogin.model';
 import SeekerResponseLogin from 'src/models/SeekerResponseLogin.model';
 import Seeker from 'src/models/Seeker.model';
 import TransferOwnership from 'src/models/TransferOwnership.model';
-import { AuthService } from './auth.service';
+import { JwtService } from './jwt.service';
 
 const sub = 'Seekers'
 
@@ -15,14 +15,14 @@ const sub = 'Seekers'
 })
 export class SeekerService {
 
-  constructor(private apiService: ApiService, private authService: AuthService) { }
+  constructor(private apiService: ApiService, private jwtService: JwtService) { }
 
   async getLoggedIn() : Promise<ApiResponse<Seeker>>{
     const userType = localStorage.getItem('user');
     if(userType !== 'seeker')
       return {status: 401, data: null, message: 'Not logged in as seeker'};
     const token = localStorage.getItem('token')!;
-    const tokenInfo: any = this.authService.JWTDecode(token);
+    const tokenInfo: any = this.jwtService.JWTDecode(token);
     if(!tokenInfo){
       return {status: 401, data: null, message: 'Error while parsing the token'};
     }

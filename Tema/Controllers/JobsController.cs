@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Tema.Helpers.Authorization;
 using Tema.Models.DTOs.Applications;
 using Tema.Models.DTOs.Finders;
 using Tema.Models.DTOs.Request.Jobs;
 using Tema.Models.DTOs.Response.Jobs;
+using Tema.Models.Enums;
 using Tema.Models.Jobs;
 using Tema.Models.ManyToMany;
 using Tema.Models.Users.Finder;
@@ -31,7 +33,7 @@ namespace Tema.Controllers
             return Ok(jobs);
         }
 
-        //[Authorization(Role.Admin)]
+        [Authorization(Role.Admin)]
         [HttpDelete("delete-all-jobs")]
         public IActionResult DeleteAllJobs()
         {
